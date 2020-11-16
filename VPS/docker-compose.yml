@@ -26,7 +26,7 @@ services:
       image: grafana/grafana
       container_name: meteostaniceGrafana
       ports: 
-        - 3000:3000
+        - 8889:3000
       expose: 
         - '3000'
       networks: 
