@@ -34,6 +34,8 @@ services:
       volumes:
         - grafanaData:/home/akr1j/Plocha/Maturita/
       restart: always
+      #environment: 
+      #  - auth.anonymous.enable=true
 
     backend_node:
       #image: "node-docker"
@@ -51,7 +53,7 @@ services:
       networks:
         - sit
       
-      #restart: always
+      restart: always
 
 
       depends_on:
