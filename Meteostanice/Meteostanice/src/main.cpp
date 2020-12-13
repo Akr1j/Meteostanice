@@ -5,19 +5,28 @@
 #define dobaSpanku 5 //Doba spánku (ve vteřinách)
 #define rozptylCasu 1 //Rozsah korekce času (časovač se posunuje zde doba kdy se vyhlásí poplach)
 
+
+#define rainDigital 34 //Port pro připojení senzoru deště
+
 int sleepTime = dobaSpanku; //Doba spánku (ve vteřinách)
+boolean dest; //Pokud je senzor mokrý - 1 jinak 0
+
 //Hodnoty pro práci s časem (Probuzení a kontrola času spánku)
 static uint64_t sleep_start_us = 0;
 struct timeval tv_now;
 RTC_DATA_ATTR long int casSpankuStary; //hodnota ukládaná i přes deepSleep
 
+void kradez(){
+  Serial.println("Ukradnuto");
+}
+
 void timeChecker() {  //Funkce pro kontrolu zda bylo zařízení ukradnuto
   sleep_start_us = gettimeofday(&tv_now,NULL);
   time_t now;
   time(&now);
-  long int casSpanku = now
+  long int casSpanku = now;
 
-  if (casSpanku - casSpankuStary < sleepTime - 1)
+  if (casSpanku - casSpankuStary < sleepTime - rozptylCasu)
   {
     kradez();
   }
@@ -28,14 +37,21 @@ void timeChecker() {  //Funkce pro kontrolu zda bylo zařízení ukradnuto
   casSpankuStary = casSpanku;
 }
 
-void kradez(){
-  Serial.println("Ukradnuto");
-}
+
 void setup() {
   Serial.begin(9600);
+
+  pinMode(rainDigital,INPUT);
 }
 
 void loop() {
   timeChecker();
+
+
+  dest = !(digitalRead(rainDigital)); // kontrola zda prší
+  Serial.println(dest);
+
+
+  
   esp_deep_sleep(sleepTime * 1000000); //Uspání zařízení na dobu v proměné sleepTime
 }

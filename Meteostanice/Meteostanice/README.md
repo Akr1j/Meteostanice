@@ -12,8 +12,12 @@ void timeChecker() {
 ```
 
 # Zdroje
+## Uspání
 [System Time](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/system_time.html)
 [[C/C++] Converting time structure to date format](https://ubuntuforums.org/archive/index.php/t-1114250.html)
+
+## Senzor deště
+[Rain Sensor Tutorial for Arduino, ESP8266 and ESP32](https://diyi0t.com/rain-sensor-tutorial-for-arduino-and-esp8266/)
 
 
 # Pokud se nejde dostat na port
