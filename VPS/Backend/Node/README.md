@@ -1,4 +1,9 @@
-Zdroje:
+## Příklad posílání dat na VPS
+```
+curl -X POST -H "Content-Type: application/json" -d '{"CAS":"2020-12-13 9:00:00", "TEPLOTA":"20", "VLHKOST":"60", "TLAK":"1000", "CO2":"5"}' http://207.180.232.51:8888/novaData
+```
+
+# Zdroje:
 https://www.js-tutorials.com/nodejs-tutorial/node-js-rest-api-add-edit-delete-record-mysql-using-express/
 
 https://nodejs.dev/learn/the-package-json-guide
