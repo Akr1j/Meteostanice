@@ -3,4 +3,4 @@ void setupDestSenzor();
 bool isPrsi();
 
 void setupBMP280();
-void readValueBMP280();
+int readValueBMP280();

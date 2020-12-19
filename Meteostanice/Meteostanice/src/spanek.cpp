@@ -2,7 +2,7 @@
 #include <sys/types.h>
 #include <sys/time.h>
 
-#define dobaSpanku 5 //Doba spánku (ve vteřinách)
+#define dobaSpanku 30 //Doba spánku (ve vteřinách)
 #define rozptylCasu 1 //Rozsah korekce času (časovač se posunuje. Zde doba kdy se vyhlásí poplach)
 #define rainDigital 34 //Port na kterém je připojen senzoru deště
 

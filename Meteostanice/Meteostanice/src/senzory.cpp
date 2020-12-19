@@ -33,13 +33,16 @@ void setupBMP280() {
   }
 }
 
-void readValueBMP280() {
+int readValueBMP280() {
+  int hodnoty[2];
     Serial.print(("Temperature = "));
-    Serial.print(bmp.readTemperature());
+    hodnoty[0] = bmp.readTemperature();
+    Serial.print(hodnoty[0]);
     Serial.println(" *C");
 
     Serial.print(("Pressure = "));
-    Serial.print(bmp.readPressure());
+    hodnoty[1] = bmp.readPressure();
+    Serial.print(hodnoty[1]);
     Serial.println(" Pa");
 
     Serial.print("Approx altitude = ");
@@ -48,4 +51,6 @@ void readValueBMP280() {
 
     Serial.println();
     delay(2000);
+
+    return hodnoty[0];
 }

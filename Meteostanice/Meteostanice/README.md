@@ -19,6 +19,11 @@ void timeChecker() {
 ## Senzor deště
 [Rain Sensor Tutorial for Arduino, ESP8266 and ESP32](https://diyi0t.com/rain-sensor-tutorial-for-arduino-and-esp8266/)
 
+## BMP senzor
+[ESP32 and BMP280 sensor example](http://www.esp32learning.com/code/esp32-and-bmp280-sensor-example.php)
+[Adafruit BMP280 Driver](https://github.com/adafruit/Adafruit_BMP280_Library)
+[ESP32 with BME280 Sensor using Arduino IDE (Pressure, Temperature, Humidity)](https://randomnerdtutorials.com/esp32-bme280-arduino-ide-pressure-temperature-humidity/)
+
 
 # Pokud se nejde dostat na port
 sudo chmod a+rw /dev/ttyUSB0
@@ -29,3 +34,6 @@ sudo chmod a+rw /dev/ttyUSB0
 |---|--|
 |P34|RAINDROP(D0 - asi)|
 |EN|Senzor otřesů D0|
+
+# Mohlo by se hodit
+[I2C komunikace](https://randomnerdtutorials.com/esp32-i2c-communication-arduino-ide/)
