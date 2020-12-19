@@ -45,7 +45,8 @@ var server = app.listen(PORT, function () {
 
 //rest api to create a new record into mysql database
 app.post('/novaData', function (req, res) {
-  var postDataCAS  = req.body.CAS;
+  //var postDataCAS  = req.body.CAS;
+  var postDataCAS = datumVeFormatu();
   var postDataTEPLOTA = req.body.TEPLOTA;
   var postDataVlhkost = req.body.VLHKOST;
   var postDataTlak = req.body.TLAK;
@@ -55,3 +56,8 @@ app.post('/novaData', function (req, res) {
    res.end(JSON.stringify(results));
  });
 });
+
+function datumVeFormatu(){
+  var lepsiDatum = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+  return lepsiDatum;
+}
