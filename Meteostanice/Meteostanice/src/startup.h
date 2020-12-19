@@ -1,0 +1,1 @@
+void zapniSerial(int rychlost);

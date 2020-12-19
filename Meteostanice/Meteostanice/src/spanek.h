@@ -1,0 +1,2 @@
+void timeChecker();
+void usni();

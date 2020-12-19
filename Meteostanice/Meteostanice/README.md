@@ -22,3 +22,10 @@ void timeChecker() {
 
 # Pokud se nejde dostat na port
 sudo chmod a+rw /dev/ttyUSB0
+
+# Prozatimní rozložení portů
+
+|ESP|senzory|
+|---|--|
+|P34|RAINDROP(D0 - asi)|
+|EN|Senzor otřesů D0|
