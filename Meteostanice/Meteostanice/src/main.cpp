@@ -5,7 +5,7 @@
 #include <startup.h>
 #include <sendViaWifi.h>
 
-int data_BMP;
+
 void setup() {
   zapniSerial(9600);
   setupBMP280();
@@ -16,11 +16,13 @@ void setup() {
 void loop() {
   timeChecker();
 
-  Serial.print("Zda prší: ");
-  Serial.println(isPrsi());
-  
-  data_BMP = readValueBMP280();
 
-  sendDataViaWifi(data_BMP,20,1000,40);
+  bool zda_prsi = isPrsi();
+  Serial.print("Zda prší: ");
+  Serial.println(zda_prsi);
+  
+  int data_BMP = readValueBMP280();
+
+  sendDataViaWifi(data_BMP,0,tlak,40);
   usni();
 }

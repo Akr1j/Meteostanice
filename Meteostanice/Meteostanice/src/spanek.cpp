@@ -5,6 +5,7 @@
 #define dobaSpanku 30 //Doba spánku (ve vteřinách)
 #define rozptylCasu 1 //Rozsah korekce času (časovač se posunuje. Zde doba kdy se vyhlásí poplach)
 #define rainDigital 34 //Port na kterém je připojen senzoru deště
+#define zapnutiZabezpeceni 5
 
 int sleepTime = dobaSpanku; //Doba spánku (ve vteřinách)
 
@@ -27,7 +28,7 @@ void timeChecker() {
   time(&now);
   long int casSpanku = now;
 
-  if (casSpanku - casSpankuStary < sleepTime - rozptylCasu)
+  if (casSpanku - casSpankuStary < sleepTime - rozptylCasu && casSpankuStary > zapnutiZabezpeceni)
   {
     kradez();
   }

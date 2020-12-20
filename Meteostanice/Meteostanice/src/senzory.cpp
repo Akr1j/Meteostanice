@@ -5,18 +5,15 @@
 //Adresa I2C pro BMP upravena v knihovně Adafruit_BMP280 na hodnotu 0x76
 
 #define rainDigital 34 //Port pro připojení senzoru deště
-boolean zda_prsi; //Pokud je senzor mokrý - 1 jinak 0
+int tlak;
 
 void setupDestSenzor(){
       pinMode(rainDigital,INPUT);
 }
 
+//Pokud je senzor mokrý - 1 jinak 0
 bool isPrsi(){
-    zda_prsi = !(digitalRead(rainDigital)); // kontrola zda prší
-    if (zda_prsi)
-      return 1;
-    else
-      return 0;
+  return !(digitalRead(rainDigital));
 }
 
 
@@ -34,15 +31,17 @@ void setupBMP280() {
 }
 
 int readValueBMP280() {
-  int hodnoty[2];
+  int teplota;
+
+  int vlhkost;
     Serial.print(("Temperature = "));
-    hodnoty[0] = bmp.readTemperature();
-    Serial.print(hodnoty[0]);
+    teplota = bmp.readTemperature();
+    Serial.print(teplota);
     Serial.println(" *C");
 
     Serial.print(("Pressure = "));
-    hodnoty[1] = bmp.readPressure();
-    Serial.print(hodnoty[1]);
+    tlak = bmp.readPressure();
+    Serial.print(tlak);
     Serial.println(" Pa");
 
     Serial.print("Approx altitude = ");
@@ -52,5 +51,5 @@ int readValueBMP280() {
     Serial.println();
     delay(2000);
 
-    return hodnoty[0];
+    return teplota;
 }
