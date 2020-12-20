@@ -10,5 +10,10 @@ CREATE TABLE teplota(
     TeplotaTeplota FLOAT(2),
     TeplotaVlhkost FLOAT(2),
     TeplotaTlak FLOAT(2),
-    TeplotaCO2 FLOAT(2)
+    TeplotaCO2 FLOAT(2),
+    Dest TINYINT(1)
+);
+CREATE TABLE pohyb(
+    Cas TIMESTAMP,
+    Pohyb TINYINT(1)
 );

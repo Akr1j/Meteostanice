@@ -51,7 +51,18 @@ app.post('/novaData', function (req, res) {
   var postDataVlhkost = req.body.VLHKOST;
   var postDataTlak = req.body.TLAK;
   var postDataCO2 = req.body.CO2;
-  con.query('INSERT INTO teplota (TeplotaCas, TeplotaTeplota, TeplotaVlhkost, TeplotaTlak, TeplotaCO2) VALUES (?,?,?,?,?)', [postDataCAS, postDataTEPLOTA, postDataVlhkost, postDataTlak, postDataCO2], function (error, results, fields) {
+  var postDataDest = req.body.DEST;
+  con.query('INSERT INTO teplota (TeplotaCas, TeplotaTeplota, TeplotaVlhkost, TeplotaTlak, TeplotaCO2, Dest) VALUES (?,?,?,?,?,?)', [postDataCAS, postDataTEPLOTA, postDataVlhkost, postDataTlak, postDataCO2, postDataDest], function (error, results, fields) {
+   if (error) throw error;
+   res.end(JSON.stringify(results));
+ });
+});
+
+app.post('/kradez', function (req, res) {
+  //var postDataCAS  = req.body.CAS;
+  var postDataCAS = datumVeFormatu();
+  var postDataPohyb = req.body.Pohyb;
+  con.query('INSERT INTO pohyb (Cas, Pohyb) VALUES (?,?)', [postDataCAS, postDataPohyb], function (error, results, fields) {
    if (error) throw error;
    res.end(JSON.stringify(results));
  });
