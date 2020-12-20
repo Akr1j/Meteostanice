@@ -8,7 +8,7 @@ var mysql = require('mysql');
 var bodyParser = require('body-parser');
 const { Console } = require("console");
 
-
+/*
 //Spojení s DB
 var con = mysql.createConnection({
   host: 'backend_database',
@@ -23,6 +23,7 @@ con.connect(function(err) {
   if (err) throw err;
   console.log("query.js Connected to database meteoData!");
 });
+*/
 
 //Konfigurace JSON
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
@@ -38,8 +39,9 @@ var server = app.listen(PORT, function () {
   var host = server.address().address
   var port = server.address().port
 
-  console.log("Example app listening at http://%s:%s", host, port)
+  console.log("Api for Meteostanice listening at http://%s:%s", host, port)
 
+  console.log(new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''));
 });
 
 

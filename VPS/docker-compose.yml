@@ -42,7 +42,8 @@ services:
       build: Backend/Node/
       #image: "node:8"
       container_name: meteostaniceNode
-      #environment:
+      environment:
+        TZ: "Europe/Berlin"
       #  - NODE_ENV=production
       #volumes:
       #  - ./:/home/node/app
