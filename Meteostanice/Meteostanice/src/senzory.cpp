@@ -42,7 +42,7 @@ float readValueBMP280() {
     Serial.println(" *C");
 
     Serial.print(("Pressure = "));
-    teplota = bmp.readPressure();
+    tlak = bmp.readPressure();
     Serial.print(tlak);
     Serial.println(" Pa");
 
