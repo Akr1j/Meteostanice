@@ -4,4 +4,4 @@ bool isPrsi();
 extern int tlak;
 
 void setupBMP280();
-int readValueBMP280();
+float readValueBMP280();

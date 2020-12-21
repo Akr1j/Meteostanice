@@ -2,18 +2,20 @@
 #include <Adafruit_BMP280.h>
 #include <SPI.h>
 
+#include <conf.h>
+
 //Adresa I2C pro BMP upravena v knihovně Adafruit_BMP280 na hodnotu 0x76
 
-#define rainDigital 34 //Port pro připojení senzoru deště
+extern const int pin_pro_dest;
 int tlak;
 
 void setupDestSenzor(){
-      pinMode(rainDigital,INPUT);
+      pinMode(pin_pro_dest,INPUT);
 }
 
 //Pokud je senzor mokrý - 1 jinak 0
 bool isPrsi(){
-  return !(digitalRead(rainDigital));
+  return !(digitalRead(pin_pro_dest));
 }
 
 
@@ -30,8 +32,8 @@ void setupBMP280() {
   }
 }
 
-int readValueBMP280() {
-  int teplota;
+float readValueBMP280() {
+  float teplota;
 
   int vlhkost;
     Serial.print(("Temperature = "));
@@ -40,7 +42,7 @@ int readValueBMP280() {
     Serial.println(" *C");
 
     Serial.print(("Pressure = "));
-    tlak = bmp.readPressure();
+    teplota = bmp.readPressure();
     Serial.print(tlak);
     Serial.println(" Pa");
 
