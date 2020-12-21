@@ -24,6 +24,9 @@ void timeChecker() {
 [Adafruit BMP280 Driver](https://github.com/adafruit/Adafruit_BMP280_Library)
 [ESP32 with BME280 Sensor using Arduino IDE (Pressure, Temperature, Humidity)](https://randomnerdtutorials.com/esp32-bme280-arduino-ide-pressure-temperature-humidity/)
 
+## Wifi
+[ESP32 HTTP GET and HTTP POST](https://randomnerdtutorials.com/esp32-http-get-post-arduino/#http-post)
+
 
 # Pokud se nejde dostat na port
 sudo chmod a+rw /dev/ttyUSB0

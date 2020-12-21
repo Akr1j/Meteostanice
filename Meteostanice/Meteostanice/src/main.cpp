@@ -7,7 +7,7 @@
 
 
 void setup() {
-  zapniSerial(9600);
+  zapniSerial(115200);
   setupBMP280();
   setupDestSenzor();
   setupWifiCon();
@@ -23,6 +23,6 @@ void loop() {
   
   int data_BMP = readValueBMP280();
 
-  sendDataViaWifi(data_BMP,0,tlak,40);
+  sendDataViaWifi(data_BMP,0,tlak,40, zda_prsi);
   usni();
 }
