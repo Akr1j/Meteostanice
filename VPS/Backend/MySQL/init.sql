@@ -7,10 +7,10 @@ CREATE DATABASE meteoData;
 USE meteoData;
 CREATE TABLE teplota(
     TeplotaCas TIMESTAMP,
-    TeplotaTeplota FLOAT(2),
-    TeplotaVlhkost FLOAT(2),
-    TeplotaTlak FLOAT(2),
-    TeplotaCO2 FLOAT(2),
+    TeplotaTeplota FLOAT(4,2),
+    TeplotaVlhkost FLOAT(2,2),
+    TeplotaTlak INT,
+    TeplotaCO2 FLOAT(4,2),
     Dest TINYINT(1)
 );
 CREATE TABLE pohyb(
