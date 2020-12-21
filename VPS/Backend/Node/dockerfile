@@ -15,7 +15,6 @@ WORKDIR /home/nodeuser/app
 COPY package.json .
 RUN npm install --production
 
-COPY js/query.js ./src/query.js
-COPY js/app.js ./src/app.js
+COPY query.js ./src/query.js
 
 CMD /wait && node src/query.js
