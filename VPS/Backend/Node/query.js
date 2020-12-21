@@ -38,8 +38,6 @@ var server = app.listen(PORT, function () {
   var port = server.address().port
 
   console.log("Api for Meteostanice listening at http://%s:%s", host, port)
-
-  console.log(new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''));
 });
 
 
@@ -52,6 +50,11 @@ app.post('/novaData', function (req, res) {
   var postDataTlak = req.body.TLAK;
   var postDataCO2 = req.body.CO2;
   var postDataDest = req.body.DEST;
+
+  (postDataTEPLOTA).toFixed(2);
+  (postDataVlhkost).toFixed(2);
+  console.log(postDataTEPLOTA);
+  console.log((postDataTEPLOTA).toFixed(2));
   con.query('INSERT INTO teplota (TeplotaCas, TeplotaTeplota, TeplotaVlhkost, TeplotaTlak, TeplotaCO2, Dest) VALUES (?,?,?,?,?,?)', [postDataCAS, postDataTEPLOTA, postDataVlhkost, postDataTlak, postDataCO2, postDataDest], function (error, results, fields) {
    if (error) throw error;
    res.end(JSON.stringify(results));
