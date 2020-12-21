@@ -21,7 +21,7 @@ void loop() {
   Serial.print("Zda prší: ");
   Serial.println(zda_prsi);
   
-  int data_BMP = readValueBMP280();
+  float data_BMP = readValueBMP280();
 
   sendDataViaWifi(data_BMP,0,tlak,40, zda_prsi);
   usni();

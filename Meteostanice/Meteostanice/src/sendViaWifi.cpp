@@ -26,12 +26,14 @@ void setupWifiCon() {
 }
 
 void sendDataViaWifi(float teplota, float vlhkost, int tlak, int co2, bool dest) {
+  Serial.println(teplota);
     String teplota_text = String(teplota);
     String vlhkost_text = String(vlhkost);
     String tlak_text = String(tlak);
     String co2_text  = String(co2);
     String dest_text = String(dest);
 
+    Serial.println(teplota_text);
     //Check WiFi connection status
     if(WiFi.status()== WL_CONNECTED){
       HTTPClient http;
@@ -42,6 +44,7 @@ void sendDataViaWifi(float teplota, float vlhkost, int tlak, int co2, bool dest)
  
       http.addHeader("Content-Type", "application/json");
       String postBody = "{\"TEPLOTA\":\""+ teplota_text +"\", \"VLHKOST\":"+ vlhkost_text +", \"TLAK\":"+ tlak_text +", \"CO2\":"+ co2_text +", \"DEST\":"+ dest_text +"}";
+      Serial.println(postBody);
       int httpResponseCode = http.POST(postBody);
       Serial.print("HTTP Response code: ");
       Serial.println(httpResponseCode);
