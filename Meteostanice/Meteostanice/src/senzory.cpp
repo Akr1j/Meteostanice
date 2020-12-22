@@ -55,3 +55,40 @@ float readValueBMP280() {
 
     return teplota;
 }
+
+
+
+
+
+#include "Adafruit_CCS811.h"
+
+Adafruit_CCS811 ccs;
+
+void setupCCS811() { 
+  ccs.begin();
+  //calibrate temperature sensor
+  while(!ccs.available());
+  float temp = ccs.calculateTemperature();
+  ccs.setTempOffset(temp - 25.0);
+}
+
+
+int readValueCCS811() {
+  if(ccs.available()){
+    float temp = ccs.calculateTemperature();
+    delay(5000);
+    if(!ccs.readData()){
+      int co2 = ccs.geteCO2();
+      int tvoc = ccs.getTVOC();
+      Serial.println(String ("CO2:")+ String (co2)+String(" PPM"));
+      Serial.println(String ("TVOC:")+ String (tvoc)+String(" PPB "));
+      Serial.println(String("T:"+String (int(temp)))+String("C"));
+      return co2;
+    }
+    else{
+      Serial.println("ERROR: CO2");
+      return 0;
+    }
+  }
+
+}

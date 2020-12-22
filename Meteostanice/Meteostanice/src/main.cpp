@@ -7,10 +7,12 @@
 
 
 void setup() {
-  zapniSerial(115200);
+  zapniSerial(9600);
   setupBMP280();
   setupDestSenzor();
   setupWifiCon();
+
+  setupCCS811();
 }
 
 void loop() {
@@ -23,6 +25,8 @@ void loop() {
   
   float data_BMP = readValueBMP280();
 
-  sendDataViaWifi(data_BMP,0,tlak,40, zda_prsi);
+  int co2 = readValueCCS811();
+
+  sendDataViaWifi(data_BMP,0,tlak,co2, zda_prsi);
   usni();
 }
