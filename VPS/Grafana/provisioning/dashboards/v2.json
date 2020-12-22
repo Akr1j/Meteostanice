@@ -67,13 +67,13 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  TeplotaCas AS \"time\",\n  TeplotaTeplota AS \"Teplota\",\n  TeplotaVlhkost AS \"Vlhkost\",\n  TeplotaTlak AS \"Tlak\",\n  TeplotaCO2 AS \"CO2\"\nFROM teplota\nORDER BY TeplotaCas",
+          "rawSql": "SELECT\n  Cas AS \"time\",\n  Teplota AS \"Teplota\",\n  Vlhkost AS \"Vlhkost\",\n  Tlak AS \"Tlak\",\n  CO2 AS \"CO2\"\nFROM teplota\nWHERE\n  $__timeFilter(Cas)\nORDER BY Cas",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "TeplotaTeplota"
+                  "Teplota"
                 ],
                 "type": "column"
               },
@@ -87,7 +87,7 @@
             [
               {
                 "params": [
-                  "TeplotaVlhkost"
+                  "Vlhkost"
                 ],
                 "type": "column"
               },
@@ -101,7 +101,7 @@
             [
               {
                 "params": [
-                  "TeplotaTlak"
+                  "Tlak"
                 ],
                 "type": "column"
               },
@@ -115,7 +115,7 @@
             [
               {
                 "params": [
-                  "TeplotaCO2"
+                  "CO2"
                 ],
                 "type": "column"
               },
@@ -128,9 +128,15 @@
             ]
           ],
           "table": "teplota",
-          "timeColumn": "TeplotaCas",
+          "timeColumn": "Cas",
           "timeColumnType": "timestamp",
-          "where": []
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
         }
       ],
       "timeFrom": null,
@@ -194,13 +200,13 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  TeplotaCas AS \"time\",\n  TeplotaTeplota AS \"Teplota\"\nFROM teplota\nORDER BY TeplotaCas",
+          "rawSql": "SELECT\n  Cas AS \"time\",\n  Teplota AS \"Teplota\"\nFROM teplota\nWHERE\n  $__timeFilter(Cas)\nORDER BY Cas",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "TeplotaTeplota"
+                  "Teplota"
                 ],
                 "type": "column"
               },
@@ -213,9 +219,15 @@
             ]
           ],
           "table": "teplota",
-          "timeColumn": "TeplotaCas",
+          "timeColumn": "Cas",
           "timeColumnType": "timestamp",
-          "where": []
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
         }
       ],
       "thresholds": [],
@@ -313,13 +325,13 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  TeplotaCas AS \"time\",\n  TeplotaVlhkost AS \"Vlhkost\"\nFROM teplota\nORDER BY TeplotaCas",
+          "rawSql": "SELECT\n  Cas AS \"time\",\n  Vlhkost AS \"Vlhkost\"\nFROM teplota\nWHERE\n  $__timeFilter(Cas)\nORDER BY Cas",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "TeplotaVlhkost"
+                  "Vlhkost"
                 ],
                 "type": "column"
               },
@@ -332,9 +344,15 @@
             ]
           ],
           "table": "teplota",
-          "timeColumn": "TeplotaCas",
+          "timeColumn": "Cas",
           "timeColumnType": "timestamp",
-          "where": []
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
         }
       ],
       "thresholds": [],
@@ -436,26 +454,20 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  TeplotaCas AS \"time\",\n  TeplotaTlak AS \"Tlak\"\nFROM teplota\nORDER BY TeplotaCas",
+          "rawSql": "SELECT\n  Cas AS \"time\",\n  Tlak\nFROM teplota\nORDER BY Cas",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "TeplotaTlak"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
                   "Tlak"
                 ],
-                "type": "alias"
+                "type": "column"
               }
             ]
           ],
           "table": "teplota",
-          "timeColumn": "TeplotaCas",
+          "timeColumn": "Cas",
           "timeColumnType": "timestamp",
           "where": []
         }
@@ -510,7 +522,8 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "unit": "ppm"
         },
         "overrides": []
       },
@@ -554,13 +567,13 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  TeplotaCas AS \"time\",\n  TeplotaCO2 AS \"CO2\"\nFROM teplota\nORDER BY TeplotaCas",
+          "rawSql": "SELECT\n  Cas AS \"time\",\n  CO2 AS \"CO2\"\nFROM teplota\nWHERE\n  $__timeFilter(Cas)\nORDER BY Cas",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "TeplotaCO2"
+                  "CO2"
                 ],
                 "type": "column"
               },
@@ -573,9 +586,15 @@
             ]
           ],
           "table": "teplota",
-          "timeColumn": "TeplotaCas",
+          "timeColumn": "Cas",
           "timeColumnType": "timestamp",
-          "where": []
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
         }
       ],
       "thresholds": [],
@@ -598,7 +617,7 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "ppm",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -690,7 +709,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  TeplotaCas AS \"time\",\n  Dest\nFROM teplota\nORDER BY TeplotaCas",
+          "rawSql": "SELECT\n  Cas AS \"time\",\n  Dest\nFROM teplota\nWHERE\n  $__timeFilter(Cas)\nORDER BY Cas",
           "refId": "A",
           "select": [
             [
@@ -703,9 +722,15 @@
             ]
           ],
           "table": "teplota",
-          "timeColumn": "TeplotaCas",
+          "timeColumn": "Cas",
           "timeColumnType": "timestamp",
-          "where": []
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
         }
       ],
       "thresholds": [],
@@ -872,7 +897,7 @@
       }
     }
   ],
-  "refresh": false,
+  "refresh": "10s",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -880,8 +905,8 @@
     "list": []
   },
   "time": {
-    "from": "2020-10-23T19:00:00.000Z",
-    "to": "2020-10-24T19:00:00.000Z"
+    "from": "now-30m",
+    "to": "now"
   },
   "timepicker": {
     "hidden": false,
@@ -892,5 +917,5 @@
   "timezone": "",
   "title": "Meteostanice",
   "uid": "vdGxsihMz",
-  "version": 2
+  "version": 3
 }
