@@ -8,6 +8,7 @@
 
 void setup() {
   zapniSerial(9600);
+  porty();
   setupBMP280();
   setupDestSenzor();
   setupWifiCon();

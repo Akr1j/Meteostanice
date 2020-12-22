@@ -28,7 +28,9 @@ void setupBMP280() {
   Serial.println(F("BMP280 test"));
   if (!bmp.begin()) {
     Serial.println(F("Could not find a valid BMP280 sensor, check wiring!"));
-    while (1);
+    digitalWrite(5,0);
+    delay(1000);
+    esp_restart();
   }
 }
 
