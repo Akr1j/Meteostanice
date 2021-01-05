@@ -56,9 +56,7 @@ float readValueBMP280() {
   float teplota;
   //int vlhkost;
     teplota = bmp.readTemperature();
-    teplota = -200;
     tlak = bmp.readPressure();
-    tlak = 0;
     if(!verifyTemperatureBMP280(teplota))
       teplota = 50;
     if(!verifyPressureBMP280(tlak))
@@ -90,7 +88,6 @@ int readValueCCS811() {
     delay(5000);
     if(!ccs.readData()){
       int co2 = ccs.geteCO2();
-      co2 = 0;
       if (!verifyValueCCS811(co2))
         co2 = 0;
       
