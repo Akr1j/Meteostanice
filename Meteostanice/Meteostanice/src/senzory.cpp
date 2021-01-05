@@ -39,33 +39,31 @@ void setupBMP280() {
   }
 }
 
+int verifyTemperatureBMP280(int teplota){
+  if (teplota > 45 || teplota < (-20))
+    return false;
+  else
+    return true;
+}
+int verifyPressureBMP280(int tlak){
+  if (tlak > 110000 || tlak < 30000)
+    return false;
+  else
+    return true;
+}
+
 float readValueBMP280() {
   float teplota;
   //int vlhkost;
     teplota = bmp.readTemperature();
+    teplota = -200;
     tlak = bmp.readPressure();
+    tlak = 0;
+    if(!verifyTemperatureBMP280(teplota))
+      teplota = 50;
+    if(!verifyPressureBMP280(tlak))
+      tlak = 0;
     return teplota;
-}
-
-int verifyTemperatureBMP280(int teplota){
-  if (teplota > 50 || teplota < (-20))
-  {
-    return 1;
-  }
-  else
-  {
-    return 0;
-  }
-}
-int verifyPressureBMP280(int tlak){
-  if (tlak > 110000 || tlak < 30000)
-  {
-    return 1;
-  }
-  else
-  {
-    return 0;
-  }
 }
 
 /*
@@ -80,33 +78,31 @@ void setupCCS811() {
   ccs.setTempOffset(temp - 25.0);
 }
 
+bool verifyValueCCS811(int hodnota){
+  if (hodnota > 8192 || hodnota < 400)
+    return false;
+  else
+    return true;
+}
+
 int readValueCCS811() {
   if(ccs.available()){
     delay(5000);
     if(!ccs.readData()){
       int co2 = ccs.geteCO2();
+      co2 = 0;
       if (!verifyValueCCS811(co2))
-        co2 = NULL;
+        co2 = 0;
       
       return co2;
     }
     else{
-      Serial.println("ERROR: CO2");
+      Serial.println("ERROR: Data CO2");
       senzoryReset();
       return 0;
     }
   }
+  Serial.println("ERROR: Start CO2");
   senzoryReset();
   return 0;
-}
-
-bool verifyValueCCS811(int hodnota){
-  if (hodnota > 8192 || hodnota < 400)
-  {
-    return 1;
-  }
-  else
-  {
-    return 0;
-  }
 }

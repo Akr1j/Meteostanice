@@ -4,8 +4,12 @@
 # Limity projektu
 ||Teplota|Tlak|CO2|
 |--|-----|---|--|
-|Maximum|50|110000|8192|
+|Maximum|40|110000|8192|
 |Minimum|-20|30000|400|
+|Chyba|45|0|0|
+
+## Označení chyb
+Pokud jsou načteny špatné hodnoty (více/méně) než jak je uvedeno Meteostanice odešle data uvedaná v tabulce a ty jsou na backendu upraveny
 
 # Zabezpečení krádeže
 ```
