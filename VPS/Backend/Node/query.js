@@ -44,13 +44,13 @@ var server = app.listen(PORT, function () {
 //rest api to create a new record into mysql database
 app.post('/novaData', function (req, res) {
   if (!req.body||
-    req.body.hasOwnProperty('TEPLOTA')||
-    req.body.hasOwnProperty('VLHKOST')||
-    req.body.hasOwnProperty('TLAK')||
-    req.body.hasOwnProperty('CO2')||
-    req.body.hasOwnProperty('DEST')){
-    res.status(400);
-    res.send("Wrong json argument");
+    !req.body.hasOwnProperty('TEPLOTA')||
+    !req.body.hasOwnProperty('VLHKOST')||
+    !req.body.hasOwnProperty('TLAK')||
+    !req.body.hasOwnProperty('CO2')||
+    !req.body.hasOwnProperty('DEST')){
+    !res.status(400);
+    !res.send("Wrong json argument");
     return;
   }
   //var postDataCAS  = req.body.CAS;
