@@ -47,6 +47,27 @@ float readValueBMP280() {
     return teplota;
 }
 
+int verifyTemperatureBMP280(int teplota){
+  if (teplota > 50 || teplota < (-20))
+  {
+    return 1;
+  }
+  else
+  {
+    return 0;
+  }
+}
+int verifyPressureBMP280(int tlak){
+  if (tlak > 110000 || tlak < 30000)
+  {
+    return 1;
+  }
+  else
+  {
+    return 0;
+  }
+}
+
 /*
 SENZOR CO2
 */
@@ -64,6 +85,9 @@ int readValueCCS811() {
     delay(5000);
     if(!ccs.readData()){
       int co2 = ccs.geteCO2();
+      if (!verifyValueCCS811(co2))
+        co2 = NULL;
+      
       return co2;
     }
     else{
@@ -74,4 +98,15 @@ int readValueCCS811() {
   }
   senzoryReset();
   return 0;
+}
+
+bool verifyValueCCS811(int hodnota){
+  if (hodnota > 8192 || hodnota < 400)
+  {
+    return 1;
+  }
+  else
+  {
+    return 0;
+  }
 }
