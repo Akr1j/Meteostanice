@@ -43,6 +43,16 @@ var server = app.listen(PORT, function () {
 
 //rest api to create a new record into mysql database
 app.post('/novaData', function (req, res) {
+  if (!req.body||
+    req.body.hasOwnProperty('TEPLOTA')||
+    req.body.hasOwnProperty('VLHKOST')||
+    req.body.hasOwnProperty('TLAK')||
+    req.body.hasOwnProperty('CO2')||
+    req.body.hasOwnProperty('DEST')){
+    res.status(400);
+    res.send("Wrong json argument");
+    return;
+  }
   //var postDataCAS  = req.body.CAS;
   var postDataCAS = datumVeFormatu();
   var postDataTEPLOTA = req.body.TEPLOTA;
@@ -50,6 +60,7 @@ app.post('/novaData', function (req, res) {
   var postDataTlak = req.body.TLAK;
   var postDataCO2 = req.body.CO2;
   var postDataDest = req.body.DEST;
+  valuesCheck(postDataTEPLOTA, postDataTlak, postDataCO2);
 
   con.query('INSERT INTO teplota (Cas, Teplota, Vlhkost, Tlak, CO2, Dest) VALUES (?,?,?,?,?,?)', [postDataCAS, postDataTEPLOTA, postDataVlhkost, postDataTlak, postDataCO2, postDataDest], function (error, results, fields) {
    if (error) throw error;
@@ -70,4 +81,13 @@ app.post('/kradez', function (req, res) {
 function datumVeFormatu(){
   var lepsiDatum = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
   return lepsiDatum;
+}
+
+function valuesCheck(postDataTEPLOTA, postDataTlak, postDataCO2){
+  if(postDataTEPLOTA == 50)
+    postDataTEPLOTA = null;
+  if(postDataTlak == 0)
+    postDataTlak = null;
+  if(postDataCO2 == 0)
+    postDataCO2 = null;
 }
