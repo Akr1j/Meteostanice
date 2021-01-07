@@ -60,7 +60,7 @@ app.post('/novaData', function (req, res) {
   var postDataTlak = req.body.TLAK;
   var postDataCO2 = req.body.CO2;
   var postDataDest = req.body.DEST;
-  valuesCheck(postDataTEPLOTA, postDataTlak, postDataCO2);
+  //valuesCheck(postDataTEPLOTA, postDataTlak, postDataCO2);
 
   con.query('INSERT INTO teplota (Cas, Teplota, Vlhkost, Tlak, CO2, Dest) VALUES (?,?,?,?,?,?)', [postDataCAS, postDataTEPLOTA, postDataVlhkost, postDataTlak, postDataCO2, postDataDest], function (error, results, fields) {
    if (error) throw error;
