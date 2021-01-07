@@ -1,37 +1,33 @@
-#include <Arduino.h>
-#include <sys/types.h>
-#include <sys/time.h>
+//#include <Arduino.h>
 
-int sleepTime = 5; //Doba spánku (ve vteřinách)
+#include <spanek.h>
+#include <senzory.h>
+#include <startup.h>
+#include <sendViaWifi.h>
 
-static uint64_t sleep_start_us = 0;
-struct timeval tv_now;
-RTC_DATA_ATTR long int casSpankuStary;
+const char* ssid = "Jandourek";
+const char* password = "hesloProNarusitele";
 
-void timeChecker() {
-  sleep_start_us = gettimeofday(&tv_now,NULL);
-  time_t now;
-  time(&now);
-  long int casSpanku = now;
-
-
-  if (casSpanku - casSpankuStary < 5)
-  {
-    Serial.println("Ukradnuto");
-  }
-  Serial.println();
-  Serial.println(casSpanku);
-  Serial.println(casSpankuStary);
-  casSpankuStary = casSpanku;
- 
-}
+const char* server_data = "http://207.180.232.51:8888/novaData";
 
 void setup() {
-  Serial.begin(9600);
-
+  zapniSerial(9600);
+  porty();
+  setupBMP280();
+  setupCCS811();
+  setupDestSenzor();
+  setupWifiCon(ssid, password);
+  timeChecker();
 }
 
 void loop() {
-  timeChecker();
-  esp_deep_sleep(sleepTime * 1000000);
+
+  bool zda_prsi = isPrsi();
+  
+  float data_BMP = readValueBMP280();
+
+  int co2 = readValueCCS811();
+
+  sendDataViaWifi(server_data, data_BMP, 0, tlak, co2, zda_prsi);
+  usni();
 }
