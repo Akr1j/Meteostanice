@@ -56,6 +56,7 @@ float readValueBMP280() {
   float teplota;
   //int vlhkost;
     teplota = bmp.readTemperature();
+    teplota = teplota - 1.5; //Korekce kvůly zahřívání senzoru
     tlak = bmp.readPressure();
     if(!verifyTemperatureBMP280(teplota))
       teplota = 50;

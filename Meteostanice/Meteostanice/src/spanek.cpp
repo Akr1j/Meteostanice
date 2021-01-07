@@ -20,11 +20,19 @@ struct timeval tv_now;
 RTC_DATA_ATTR long int casSpankuStary; //hodnota ukládaná i přes deepSleep
 
 /*
+Uspání zařízení
+*/
+void usni(){
+  esp_deep_sleep(sleepTime * 1000000); //Uspání zařízení na dobu v proměné sleepTime
+}
+
+/*
 Metoda která se vyvolá po ukradnutí
 */
 void kradez(){
   Serial.println("Ukradnuto");
   sendDataViaWifi(server_pohyb);
+  usni();
 }
 
 /*
@@ -41,11 +49,4 @@ void timeChecker() {
     kradez();
   }
   casSpankuStary = casSpanku;
-}
-
-/*
-Uspání zařízení
-*/
-void usni(){
-  esp_deep_sleep(sleepTime * 1000000); //Uspání zařízení na dobu v proměné sleepTime
 }

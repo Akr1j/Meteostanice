@@ -17,10 +17,10 @@ void setup() {
   setupCCS811();
   setupDestSenzor();
   setupWifiCon(ssid, password);
+  timeChecker();
 }
 
 void loop() {
-  timeChecker();
 
   bool zda_prsi = isPrsi();
   
