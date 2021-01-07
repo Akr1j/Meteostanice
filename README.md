@@ -1,6 +1,9 @@
 # Meteostanice
 Maturitní práce
 
+## Verzování
+Projekt bude verzován podle [Sémantického verzování 2.0.0](https://semver.org/)
+
 ## Připojení na VPS
 ```
 ssh root@207.180.232.51 -p 2200
