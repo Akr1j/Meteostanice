@@ -3,7 +3,7 @@ bool isPrsi();
 
 extern int tlak;
 
-void setupBMP280();
+bool setupBMP280();
 float readValueBMP280();
 
 void setupCCS811();

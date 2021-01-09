@@ -52,9 +52,10 @@ void sendDataViaWifi(const char* adresa, float teplota, float vlhkost, int tlak,
   }
 }
 
-/*
-Odeslání času zapnutí (detekce pohybu s zařízením)
-*/
+/*!
+ * @brief Odeslání oznámení o ukradnutí
+ * @param adresa Adresa na kterou se data mají posílat
+ */
 void sendDataViaWifi(const char* adresa){
   if(WiFi.status()== WL_CONNECTED){   //Check WiFi connection status
     HTTPClient http;

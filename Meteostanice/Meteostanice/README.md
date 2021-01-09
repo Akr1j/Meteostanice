@@ -49,6 +49,9 @@ Pozor na rozdíl mezi BMP280 a BME280. Zatímco BMP280 měří pouze tlak a tepl
 ## Wifi
 - [ESP32 HTTP GET and HTTP POST](https://randomnerdtutorials.com/esp32-http-get-post-arduino/#http-post)
 
+## EEPROM
+- [ESP32 Flash Memory – Store Permanent Data (Write and Read)](https://randomnerdtutorials.com/esp32-flash-memory/)
+
 ## Technika kódu
 - [Refaktorování](https://cs.wikipedia.org/wiki/Refaktorov%C3%A1n%C3%AD)
 

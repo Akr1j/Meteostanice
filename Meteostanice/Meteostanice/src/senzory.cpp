@@ -2,6 +2,7 @@
 #include <SPI.h>
 #include <Adafruit_BMP280.h>
 #include "Adafruit_CCS811.h"
+#include <EEPROM.h>
 
 #include <conf.h>
 
@@ -21,22 +22,31 @@ bool isPrsi(){
 
 void senzoryReset(){
   digitalWrite(5,0);
+  int number_of_restarts =  EEPROM.read(0);
+  Serial.println("EEPROM hodnota: ");
+  Serial.println(number_of_restarts);
+  EEPROM.write(0,number_of_restarts++);
   delay(500);
   esp_restart();
 }
 
 
-/*
-SENZOR TEPLOTY, TLAKU
-*/
-Adafruit_BMP280 bmp;
 
-void setupBMP280() {
+Adafruit_BMP280 bmp;
+/*!
+*SENZOR TEPLOTY, TLAKU
+*@return Pokud nastane chyba vrátí true 
+*/
+bool setupBMP280() {
+  EEPROM.begin(1);
   Serial.println(F("BMP280 test"));
   if (!bmp.begin()) {
     Serial.println(F("Could not find a valid BMP280 sensor, check wiring!"));
-    senzoryReset();
+    if (EEPROM.read(0) < 4)
+      senzoryReset();
+    return true;
   }
+  return false;
 }
 
 int verifyTemperatureBMP280(int teplota){
@@ -96,11 +106,13 @@ int readValueCCS811() {
     }
     else{
       Serial.println("ERROR: Data CO2");
-      senzoryReset();
+      if (EEPROM.read(0) < 4)
+        senzoryReset();
       return 0;
     }
   }
   Serial.println("ERROR: Start CO2");
-  senzoryReset();
+  if (EEPROM.read(0) < 4)
+    senzoryReset();
   return 0;
 }
