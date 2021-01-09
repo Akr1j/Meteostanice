@@ -29,8 +29,9 @@ void usni(){
 /*
 Metoda která se vyvolá po ukradnutí
 */
-void kradez(){
+void kradez(const char* ssid, const char* password){
   Serial.println("Ukradnuto");
+  setupWifiCon(ssid, password);
   sendDataViaWifi(server_pohyb);
   usni();
 }
@@ -38,7 +39,7 @@ void kradez(){
 /*
 Funkce pro kontrolu zda bylo zařízení ukradnuto
 */
-void timeChecker() {
+void timeChecker(const char* ssid, const char* password) {
   sleep_start_us = gettimeofday(&tv_now,NULL);
   time_t now;
   time(&now);
@@ -46,7 +47,7 @@ void timeChecker() {
 
   if (casSpanku - casSpankuStary < sleepTime - rozptylCasu)
   {
-    kradez();
+    kradez(ssid, password);
   }
   casSpankuStary = casSpanku;
 }

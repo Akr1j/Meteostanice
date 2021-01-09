@@ -48,6 +48,7 @@ void sendDataViaWifi(const char* adresa, float teplota, float vlhkost, int tlak,
   }
   else {
     Serial.println("WiFi Disconnected");
+    esp_restart();
   }
 }
 
@@ -67,5 +68,6 @@ void sendDataViaWifi(const char* adresa){
   }
   else {
     Serial.println("WiFi Disconnected");
+    esp_restart();
   }
 }

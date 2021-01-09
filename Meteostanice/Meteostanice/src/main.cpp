@@ -12,12 +12,12 @@ const char* server_data = "http://207.180.232.51:8888/novaData";
 
 void setup() {
   zapniSerial(9600);
+  timeChecker(ssid, password);
   porty();
   setupBMP280();
   setupCCS811();
   setupDestSenzor();
   setupWifiCon(ssid, password);
-  timeChecker();
 }
 
 void loop() {
