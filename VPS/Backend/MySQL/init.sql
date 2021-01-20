@@ -17,3 +17,9 @@ CREATE TABLE pohyb(
     Cas TIMESTAMP,
     Pohyb TINYINT(1)
 );
+CREATE TABLE errors(
+    Cas TIMESTAMP,
+    ID INT,
+    Misto VARCHAR(10),
+    Zaznam VARCHAR(255)
+);
