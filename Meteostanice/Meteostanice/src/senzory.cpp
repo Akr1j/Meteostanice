@@ -21,13 +21,15 @@ bool isPrsi(){
 }
 
 void senzoryReset(){
-  digitalWrite(5,0);
-  int number_of_restarts =  EEPROM.read(0);
-  Serial.println("EEPROM hodnota: ");
-  Serial.println(number_of_restarts);
-  EEPROM.write(0,number_of_restarts++);
-  delay(500);
-  esp_restart();
+  if (EEPROM.read(0) < 4){
+    digitalWrite(5,0);
+    int number_of_restarts =  EEPROM.read(0);
+    Serial.println("EEPROM hodnota: ");
+    Serial.println(number_of_restarts);
+    EEPROM.write(0,number_of_restarts++);
+    delay(500);
+    esp_restart();
+  }
 }
 
 
@@ -42,8 +44,7 @@ bool setupBMP280() {
   Serial.println(F("BMP280 test"));
   if (!bmp.begin()) {
     Serial.println(F("Could not find a valid BMP280 sensor, check wiring!"));
-    if (EEPROM.read(0) < 4)
-      senzoryReset();
+    senzoryReset();
     return true;
   }
   return false;
@@ -106,13 +107,11 @@ int readValueCCS811() {
     }
     else{
       Serial.println("ERROR: Data CO2");
-      if (EEPROM.read(0) < 4)
-        senzoryReset();
+      senzoryReset();
       return 0;
     }
   }
   Serial.println("ERROR: Start CO2");
-  if (EEPROM.read(0) < 4)
-    senzoryReset();
+  senzoryReset();
   return 0;
 }

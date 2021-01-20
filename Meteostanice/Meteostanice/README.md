@@ -7,7 +7,7 @@
 |--|-----|---|--|
 |Maximum|40|110000|8192|
 |Minimum|-20|30000|400|
-|Chyba|45|0|0|
+|Značení chyby|45|0|0|
 
 Senzor CO2 potřebuje dle [oficiální dokumentace- kapitola Conditioning Period (Run-In)](https://cdn.sparkfun.com/assets/learn_tutorials/1/4/3/CCS811_Datasheet-DS000459.pdf) k ideální přesnosti 20 min zapnutí. Z důvodů šetření baterie toto není možné (Před čtením ze senzoru uplyne maximálně 60s)
 
@@ -18,11 +18,26 @@ Pokud jsou načteny špatné hodnoty (více/méně) než jak je uvedeno Meteosta
 
 ![Zapojení](Meteostanice_bb.png)
 
+Tranzistor: 2n 2222 a331
+|ESP32|Název pinu periferie|Zařízení|
+|-|-|-|
+|GPIO5|base|Tranzistor|
+|GPIO21|SDA|BMP280/CJMCU-811|
+|GPIO22|SCL|BMP280/CJMCU-811|
+|EN|D0|Vibration shock senzor|
+|GPIO34|D0|Senzor deště|
+
 # Díly
+### ESP32
+Levný a energeticky úsporný Tzv. system on chip s Wi-Fi a Bluetooth
 ### BMP280
 Pozor na rozdíl mezi BMP280 a BME280. Zatímco BMP280 měří pouze tlak a teplotu, BME280 měří jak tepotu, tlak, tak i vlhkost.
 
-
+### CCS811
+Označováno také CJMCU-811.
+Slouží k snímání hodnot eCO2
+### Vibration shock senzor
+### Senzor deště
 
 # Zdroje
 ## Uspání
