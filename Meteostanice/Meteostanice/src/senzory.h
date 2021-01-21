@@ -1,5 +1,5 @@
-void setupDestSenzor();
-bool isPrsi();
+void setupDestSenzor(const int pin_pro_dest);
+bool isPrsi(const int pin_pro_dest);
 
 extern int tlak;
 

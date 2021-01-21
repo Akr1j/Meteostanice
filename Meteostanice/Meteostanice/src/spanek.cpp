@@ -4,42 +4,34 @@
 
 #include <sendViaWifi.h>
 
-#define dobaSpanku 30 //Doba spánku (ve vteřinách)
-#define rozptylCasu 1 //Rozsah korekce času (časovač se posunuje. Zde doba kdy se vyhlásí poplach)
-
-const char* server_pohyb = "http://207.180.232.51:8888/kradez";
-
-const int sleepTime = dobaSpanku; //Doba spánku (ve vteřinách)
-
-/*
- *Hodnoty pro práci s časem (Probuzení a kontrola času spánku)
+/*!
+ * @brief Uspání zařízení
+ * @param sleepTime Doba spánku (ve vteřinách)
  */
-
-static uint64_t sleep_start_us = 0;
-struct timeval tv_now;
-RTC_DATA_ATTR long int casSpankuStary; //hodnota ukládaná i přes deepSleep
-
-/*
-Uspání zařízení
-*/
-void usni(){
+void usni(const int sleepTime){
   esp_deep_sleep(sleepTime * 1000000); //Uspání zařízení na dobu v proměné sleepTime
 }
 
-/*
-Metoda která se vyvolá po ukradnutí
-*/
-void kradez(const char* ssid, const char* password){
+/*!
+ * @brief Akce po ukradnutí zařízení
+ */
+void kradez(const char* ssid, const char* password, const int sleepTime, const char* server_pohyb){
   Serial.println("Ukradnuto");
   setupWifiCon(ssid, password);
   sendDataViaWifi(server_pohyb);
-  usni();
+  usni(sleepTime);
 }
 
-/*
-Funkce pro kontrolu zda bylo zařízení ukradnuto
-*/
-void timeChecker(const char* ssid, const char* password) {
+RTC_DATA_ATTR long int casSpankuStary; //Čas ukládaný i přes deepSleep
+/*!
+ * @brief Kontrola zda bylo zařízení ukradnuto
+ * @param ssid Název WIFI
+ * @param password Heslo k WIFI
+ * @param sleepTime Doba spánku (ve vteřinách)
+ */
+void timeChecker(const char* ssid, const char* password, const int sleepTime, const int rozptylCasu, const char* server_pohyb) {
+  struct timeval tv_now;
+  static uint64_t sleep_start_us = 0;
   sleep_start_us = gettimeofday(&tv_now,NULL);
   time_t now;
   time(&now);
@@ -47,7 +39,7 @@ void timeChecker(const char* ssid, const char* password) {
 
   if (casSpanku - casSpankuStary < sleepTime - rozptylCasu)
   {
-    kradez(ssid, password);
+    kradez(ssid, password, sleepTime, server_pohyb);
   }
   casSpankuStary = casSpanku;
 }

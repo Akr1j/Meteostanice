@@ -5,21 +5,11 @@
 #include <EEPROM.h>
 
 #include <conf.h>
+#include <sendViaWifi.h>
 
-//Adresa I2C pro BMP upravena v knihovně Adafruit_BMP280 na hodnotu 0x76
-
-extern const int pin_pro_dest;
-int tlak;
-
-void setupDestSenzor(){
-  pinMode(pin_pro_dest,INPUT);
-}
-
-//Pokud je senzor mokrý => 1 jinak 0
-bool isPrsi(){
-  return !(digitalRead(pin_pro_dest));
-}
-
+/*!
+ * @brief Restartování periférií
+ */
 void senzoryReset(){
   if (EEPROM.read(0) < 4){
     digitalWrite(5,0);
@@ -32,12 +22,35 @@ void senzoryReset(){
   }
 }
 
+/************************************************************
+SENZOR DEŠTĚ
+************************************************************/
 
-
-Adafruit_BMP280 bmp;
 /*!
-*SENZOR TEPLOTY, TLAKU
-*@return Pokud nastane chyba vrátí true 
+ * @brief Zapnutí senzoru deště
+ */
+void setupDestSenzor(const int pin_pro_dest){
+  pinMode(pin_pro_dest,INPUT);
+}
+
+/*!
+ * @brief Čtení hodnot z senzoru deště
+ * @return Senzor mokrý => true
+ */
+bool isPrsi(const int pin_pro_dest){
+  return !(digitalRead(pin_pro_dest));
+}
+
+/************************************************************
+SENZOR BMP280
+************************************************************/
+Adafruit_BMP280 bmp;
+int tlak;
+//Adresa I2C pro BMP upravena v knihovně Adafruit_BMP280 na hodnotu 0x76
+
+/*!
+* @brief Zapnutí senzoru BMP280
+* @return Pokud nastane chyba vrátí true 
 */
 bool setupBMP280() {
   EEPROM.begin(1);
@@ -50,19 +63,23 @@ bool setupBMP280() {
   return false;
 }
 
-int verifyTemperatureBMP280(int teplota){
+bool verifyTemperatureBMP280(int teplota){
   if (teplota > 45 || teplota < (-20))
     return false;
   else
     return true;
 }
-int verifyPressureBMP280(int tlak){
+bool verifyPressureBMP280(int tlak){
   if (tlak > 110000 || tlak < 30000)
     return false;
   else
     return true;
 }
 
+/*!
+ * @brief Čtení hodnot ze senzoru BMP280
+ * @return Teplota (float)
+ */
 float readValueBMP280() {
   float teplota;
   //int vlhkost;
@@ -76,11 +93,14 @@ float readValueBMP280() {
     return teplota;
 }
 
-/*
+/************************************************************
 SENZOR CO2
-*/
+************************************************************/
 Adafruit_CCS811 ccs;
 
+/*!
+ * @brief Zapnití senzoru CCS811
+ */
 void setupCCS811() { 
   ccs.begin();
   while(!ccs.available());
@@ -95,14 +115,17 @@ bool verifyValueCCS811(int hodnota){
     return true;
 }
 
+/*!
+ * @brief Čtení hodnot ze senzoru CCS811
+ * @return Hodnota CO2 (int)
+ */
 int readValueCCS811() {
   if(ccs.available()){
-    delay(5000);
+    delay(5000); //Čas pro stabilizování senzoru !! Mělo by být 20min není možni viz.dokumentace
     if(!ccs.readData()){
       int co2 = ccs.geteCO2();
       if (!verifyValueCCS811(co2))
         co2 = 0;
-      
       return co2;
     }
     else{
