@@ -4,7 +4,6 @@
 #include "Adafruit_CCS811.h"
 #include <EEPROM.h>
 
-#include <conf.h>
 #include <sendViaWifi.h>
 
 /*!

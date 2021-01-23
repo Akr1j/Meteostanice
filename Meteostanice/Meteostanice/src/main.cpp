@@ -12,7 +12,7 @@ const char* server_pohyb = "http://207.180.232.51:8888/kradez";
 const int sleepTime = 30; //Doba spánku (ve vteřinách)
 #define rozptylCasu 1 //Rozsah korekce času (časovač se posunuje. Zde doba kdy se vyhlásí poplach)
 
-const int pin_pro_dest; //Port pro připojení senzoru deště
+const int pin_pro_dest = 34; //Port pro připojení senzoru deště
 
 bool err_bmp280;
 float data_BMP;

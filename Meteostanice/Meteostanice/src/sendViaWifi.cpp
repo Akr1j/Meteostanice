@@ -10,7 +10,7 @@ void setupWifiCon(const char* ssid, const char* password) {
   WiFi.begin(ssid, password);
   Serial.print("Connecting");
   int pocet_pokusu_o_pripojeni = 0;
-  while(WiFi.status() != WL_CONNECTED || pocet_pokusu_o_pripojeni < 50) {
+  while(WiFi.status() != WL_CONNECTED && pocet_pokusu_o_pripojeni < 50) {
     delay(500);
     Serial.print(".");
     pocet_pokusu_o_pripojeni++;
