@@ -15,10 +15,10 @@ void usni(const int sleepTime){
 /*!
  * @brief Akce po ukradnutí zařízení
  */
-void kradez(const char* ssid, const char* password, const int sleepTime, const char* server_pohyb){
+void kradez(const int sleepTime){
   Serial.println("Ukradnuto");
-  setupWifiCon(ssid, password);
-  sendDataViaWifi(server_pohyb);
+  setupWifiCon();
+  sendDataViaWifi();
   usni(sleepTime);
 }
 
@@ -29,7 +29,7 @@ RTC_DATA_ATTR long int casSpankuStary; //Čas ukládaný i přes deepSleep
  * @param password Heslo k WIFI
  * @param sleepTime Doba spánku (ve vteřinách)
  */
-void timeChecker(const char* ssid, const char* password, const int sleepTime, const int rozptylCasu, const char* server_pohyb) {
+void timeChecker(const int sleepTime, const int rozptylCasu) {
   struct timeval tv_now;
   static uint64_t sleep_start_us = 0;
   sleep_start_us = gettimeofday(&tv_now,NULL);
@@ -39,7 +39,7 @@ void timeChecker(const char* ssid, const char* password, const int sleepTime, co
 
   if (casSpanku - casSpankuStary < sleepTime - rozptylCasu)
   {
-    kradez(ssid, password, sleepTime, server_pohyb);
+    kradez(sleepTime);
   }
   casSpankuStary = casSpanku;
 }

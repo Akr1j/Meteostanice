@@ -1,3 +1,4 @@
-void setupWifiCon(const char* ssid, const char* password);
-void sendDataViaWifi(const char* adresa, float teplota, float vlhkost, int tlak, int co2, bool zda_prsi);
-void sendDataViaWifi(const char* adresa);
+void setupWifiCon();
+void sendDataViaWifi(float teplota, float vlhkost, int tlak, int co2, bool zda_prsi);
+void sendDataViaWifi();
+void sendDataViaWifi(int id,const char* zaznam);

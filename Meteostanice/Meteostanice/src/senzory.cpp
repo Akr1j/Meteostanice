@@ -21,6 +21,11 @@ void senzoryReset(){
   }
 }
 
+void sendErrorViaWifi(int id,const char* zaznam){
+  setupWifiCon();
+  sendDataViaWifi(id, zaznam);
+}
+
 /************************************************************
 SENZOR DEŠTĚ
 ************************************************************/
@@ -56,6 +61,7 @@ bool setupBMP280() {
   Serial.println(F("BMP280 test"));
   if (!bmp.begin()) {
     Serial.println(F("Could not find a valid BMP280 sensor, check wiring!"));
+    sendErrorViaWifi(10,"Could not find a valid BMP280 sensor, check wiring!");
     senzoryReset();
     return true;
   }
@@ -129,11 +135,13 @@ int readValueCCS811() {
     }
     else{
       Serial.println("ERROR: Data CO2");
+      sendErrorViaWifi(15,"ERROR: Data CO2");
       senzoryReset();
       return 0;
     }
   }
   Serial.println("ERROR: Start CO2");
+  sendErrorViaWifi(16,"ERROR: Start CO2");
   senzoryReset();
   return 0;
 }
