@@ -98,7 +98,7 @@ app.post('/chyba', function(req,res){
   var postDataMISTO = req.body.MISTO;
   var postDataZAZNAM = req.body.ZAZNAM;
 
-    con.query('INSERT INTO errors (Cas, ID, Misto, Zaznam) VALUES (?,?,?)', [postDataCAS,postDataID, postDataMISTO, postDataZAZNAM], function(error, results, fields){
+    con.query('INSERT INTO errors (Cas, ID, Misto, Zaznam) VALUES (?,?,?,?)', [postDataCAS,postDataID, postDataMISTO, postDataZAZNAM], function(error, results, fields){
       if (error) throw error;
       res.end(JSON.stringify(results));
     });
