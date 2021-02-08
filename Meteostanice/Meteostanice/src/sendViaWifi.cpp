@@ -91,7 +91,7 @@ void sendDataViaWifi(int id,const char* zaznam){
     HTTPClient http;
     http.begin(server_error);
     http.addHeader("Content-Type", "application/json");
-    String postBody = "{\"ID\":\""+ id_text +"\", \"ZAZNAM\":"+ zaznam_text +", \"MISTO\":\"Meteo1\"}";
+    String postBody = "{\"ID\":\""+ id_text +"\", \"ZAZNAM\":\""+ zaznam_text +"\", \"MISTO\":\"Meteo1\"}";
     int httpResponseCode = http.POST(postBody);
     Serial.print("HTTP Response code pro /chyba: ");
     Serial.println(httpResponseCode);

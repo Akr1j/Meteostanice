@@ -170,7 +170,7 @@ bool setupBME280() {
   Serial.println(F("BME280 test"));
   if (!bme.begin(0x76)) {
     Serial.println(F("Could not find a valid BME280 sensor, check wiring!"));
-    //sendErrorViaWifi(11,"Could not find a valid BME280 sensor, check wiring!");
+    sendErrorViaWifi(11,"Could not find a valid BME280 sensor, check wiring!");
     senzoryReset();
     return true;
   }
@@ -198,19 +198,18 @@ float readValueBME280() {
   Serial.println("Jsem v BME");
   float teplota;
   teplota = bme.readTemperature();
-  teplota = teplota - 1.5; //Korekce kvůly zahřívání senzoru
+  teplota = teplota - 0; //Korekce kvůly zahřívání senzoru
     Serial.print("Teplota BME:");
-    Serial.println(teplota);
+    Serial.print(teplota);
   tlak2 = bme.readPressure();
-    Serial.print("Tlak BME:");
-    Serial.println(tlak2);
+    Serial.print(",  Tlak BME:");
+    Serial.print(tlak2);
   vlhkost = bme.readHumidity();
-    Serial.print("Vlhkost BME:");
+    Serial.print(",  Vlhkost BME:");
     Serial.println(vlhkost);
   if(!verifyTemperatureBME280(teplota))
     teplota = 50;
   if(!verifyPressureBME280(tlak2))
     tlak2 = 0;
-  Serial.println("Končím s BME");
   return teplota;
 }

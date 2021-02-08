@@ -56,6 +56,9 @@ Slouží k snímání hodnot eCO2
 
 - [Rozdíl mezi BMP280 a BME280](https://randomnerdtutorials.com/dht11-vs-dht22-vs-lm35-vs-ds18b20-vs-bme280-vs-bmp180/)
 
+## BME280 senzor
+- [ESP32 with BME280 Sensor using Arduino IDE (Pressure, Temperature, Humidity)](https://randomnerdtutorials.com/esp32-bme280-arduino-ide-pressure-temperature-humidity/)
+
 ## CO2 senzor
 - [TVOC and CO2 Measurement using Arduino and CCS811 Air Quality Sensor](https://circuitdigest.com/microcontroller-projects/tvoc-co2-measurement-using-aduino-and-ccs811-air-quality-sensor)
 - [Oficiální dokumentace](https://cdn.sparkfun.com/assets/learn_tutorials/1/4/3/CCS811_Datasheet-DS000459.pdf)
