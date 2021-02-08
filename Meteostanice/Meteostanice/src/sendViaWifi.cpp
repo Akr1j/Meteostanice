@@ -48,7 +48,7 @@ void sendDataViaWifi(float teplota, float vlhkost, int tlak, int co2, bool dest)
     http.addHeader("Content-Type", "application/json");
     String postBody = "{\"TEPLOTA\":\""+ teplota_text +"\", \"VLHKOST\":"+ vlhkost_text +", \"TLAK\":"+ tlak_text +", \"CO2\":"+ co2_text +", \"DEST\":"+ dest_text +"}";
     int httpResponseCode = http.POST(postBody);
-    Serial.print("HTTP Response code: ");
+    Serial.print("HTTP Response code pro /novaData: ");
     Serial.println(httpResponseCode);
     http.end();
   }
@@ -69,7 +69,7 @@ void sendDataViaWifi(){
     http.addHeader("Content-Type", "application/json");
     String postBody = "{\"Pohyb\":\"1\"}";
     int httpResponseCode = http.POST(postBody);
-    Serial.print("HTTP Response code: ");
+    Serial.print("HTTP Response code pro /pohyb: ");
     Serial.println(httpResponseCode);
     http.end();
   }
@@ -93,7 +93,7 @@ void sendDataViaWifi(int id,const char* zaznam){
     http.addHeader("Content-Type", "application/json");
     String postBody = "{\"ID\":\""+ id_text +"\", \"ZAZNAM\":"+ zaznam_text +", \"MISTO\":\"Meteo1\"}";
     int httpResponseCode = http.POST(postBody);
-    Serial.print("HTTP Response code: ");
+    Serial.print("HTTP Response code pro /chyba: ");
     Serial.println(httpResponseCode);
     http.end();
   }

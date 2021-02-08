@@ -1,5 +1,6 @@
 #include <Wire.h>
 #include <SPI.h>
+#include <Adafruit_BME280.h>
 #include <Adafruit_BMP280.h>
 #include "Adafruit_CCS811.h"
 #include <EEPROM.h>
@@ -22,7 +23,7 @@ void senzoryReset(){
 }
 
 void sendErrorViaWifi(int id,const char* zaznam){
-  setupWifiCon();
+  //setupWifiCon();
   sendDataViaWifi(id, zaznam);
 }
 
@@ -90,11 +91,16 @@ float readValueBMP280() {
   //int vlhkost;
     teplota = bmp.readTemperature();
     teplota = teplota - 1.5; //Korekce kvůly zahřívání senzoru
+      Serial.print("Teplota BMP:");
+      Serial.println(teplota);
     tlak = bmp.readPressure();
+      Serial.print("Tlak BMP:");
+      Serial.println(tlak);
     if(!verifyTemperatureBMP280(teplota))
       teplota = 50;
     if(!verifyPressureBMP280(tlak))
       tlak = 0;
+    Serial.println("Končím s BMP");
     return teplota;
 }
 
@@ -144,4 +150,67 @@ int readValueCCS811() {
   sendErrorViaWifi(16,"ERROR: Start CO2");
   senzoryReset();
   return 0;
+}
+
+
+/************************************************************
+SENZOR BME280
+************************************************************/
+Adafruit_BME280 bme;
+int tlak2;
+int vlhkost;
+//Adresa I2C pro BMP upravena v knihovně Adafruit_BMP280 na hodnotu 0x76
+
+/*!
+* @brief Zapnutí senzoru BMP280
+* @return Pokud nastane chyba vrátí true 
+*/
+bool setupBME280() {
+  EEPROM.begin(1);
+  Serial.println(F("BME280 test"));
+  if (!bme.begin(0x76)) {
+    Serial.println(F("Could not find a valid BME280 sensor, check wiring!"));
+    //sendErrorViaWifi(11,"Could not find a valid BME280 sensor, check wiring!");
+    senzoryReset();
+    return true;
+  }
+  return false;
+}
+
+bool verifyTemperatureBME280(int teplota){
+  if (teplota > 45 || teplota < (-20))
+    return false;
+  else
+    return true;
+}
+bool verifyPressureBME280(int tlak){
+  if (tlak > 110000 || tlak < 30000)
+    return false;
+  else
+    return true;
+}
+
+/*!
+ * @brief Čtení hodnot ze senzoru BME280
+ * @return Teplota (float)
+ */
+float readValueBME280() {
+  Serial.println("Jsem v BME");
+  float teplota;
+  teplota = bme.readTemperature();
+  teplota = teplota - 1.5; //Korekce kvůly zahřívání senzoru
+    Serial.print("Teplota BME:");
+    Serial.println(teplota);
+  tlak2 = bme.readPressure();
+    Serial.print("Tlak BME:");
+    Serial.println(tlak2);
+  vlhkost = bme.readHumidity();
+    Serial.print("Vlhkost BME:");
+    Serial.println(vlhkost);
+  if(!verifyTemperatureBME280(teplota))
+    teplota = 50;
+  if(!verifyPressureBME280(tlak2))
+    tlak2 = 0;
+  Serial.println("Končím s BME");
+  return teplota;
 }
