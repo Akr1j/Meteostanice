@@ -23,6 +23,9 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "custom": {},
           "mappings": [],
           "thresholds": {
@@ -57,9 +60,10 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "value_and_name"
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "7.4.0",
       "targets": [
         {
           "format": "time_series",
@@ -186,7 +190,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "7.4.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -200,7 +204,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  Cas AS \"time\",\n  Teplota AS \"Teplota\"\nFROM teplota\nWHERE\n  $__timeFilter(Cas)\nORDER BY Cas",
+          "rawSql": "SELECT\n  Cas AS \"time\",\n  Teplota AS \"Teplota\"\nFROM teplota\nWHERE\n  $__timeFilter(Cas) AND\n  Teplota < 50\nORDER BY Cas",
           "refId": "A",
           "select": [
             [
@@ -226,6 +230,16 @@
               "name": "$__timeFilter",
               "params": [],
               "type": "macro"
+            },
+            {
+              "datatype": "float",
+              "name": "",
+              "params": [
+                "Teplota",
+                "<",
+                "50"
+              ],
+              "type": "expression"
             }
           ]
         }
@@ -311,7 +325,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "7.4.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -440,7 +454,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "7.4.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -454,7 +468,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  Cas AS \"time\",\n  Tlak\nFROM teplota\nORDER BY Cas",
+          "rawSql": "SELECT\n  Cas AS \"time\",\n  Tlak\nFROM teplota\nWHERE\n  $__timeFilter(Cas) AND\n  Tlak > 6000\nORDER BY Cas",
           "refId": "A",
           "select": [
             [
@@ -469,7 +483,23 @@
           "table": "teplota",
           "timeColumn": "Cas",
           "timeColumnType": "timestamp",
-          "where": []
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "Tlak",
+                ">",
+                "6000"
+              ],
+              "type": "expression"
+            }
+          ]
         }
       ],
       "thresholds": [],
@@ -553,7 +583,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "7.4.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -646,23 +676,10 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
-          },
-          "mappings": [],
+          "custom": {},
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+            "steps": []
           },
           "unit": "string"
         },
@@ -695,7 +712,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "7.4.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -814,7 +831,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "7.4.0",
       "pointradius": 10,
       "points": true,
       "renderer": "flot",
@@ -898,7 +915,7 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 26,
+  "schemaVersion": 27,
   "style": "dark",
   "tags": [],
   "templating": {
