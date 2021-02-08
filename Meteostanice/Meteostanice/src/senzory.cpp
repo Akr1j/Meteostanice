@@ -184,7 +184,13 @@ bool verifyTemperatureBME280(int teplota){
     return true;
 }
 bool verifyPressureBME280(int tlak){
-  if (tlak > 110000 || tlak < 30000)
+  if (tlak2 > 110000 || tlak2 < 30000)
+    return false;
+  else
+    return true;
+}
+bool verifyHumidityeBME280(int vlhkost){
+  if (vlhkost > 100 || vlhkost < 0)
     return false;
   else
     return true;
@@ -211,5 +217,8 @@ float readValueBME280() {
     teplota = 50;
   if(!verifyPressureBME280(tlak2))
     tlak2 = 0;
+  if (!verifyHumidityeBME280(vlhkost))
+    vlhkost = -1;
+  
   return teplota;
 }
