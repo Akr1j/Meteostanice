@@ -8,7 +8,7 @@ USE meteoData;
 CREATE TABLE teplota(
     Cas TIMESTAMP,
     Teplota FLOAT(4,2),
-    Vlhkost FLOAT(2,2),
+    Vlhkost INT,
     Tlak INT,
     CO2 INT,
     Dest TINYINT(1)
@@ -16,4 +16,10 @@ CREATE TABLE teplota(
 CREATE TABLE pohyb(
     Cas TIMESTAMP,
     Pohyb TINYINT(1)
+);
+CREATE TABLE errors(
+    Cas TIMESTAMP,
+    ID INT,
+    Misto VARCHAR(10),
+    Zaznam VARCHAR(255)
 );
