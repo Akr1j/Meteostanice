@@ -6,7 +6,7 @@
 ||Teplota|Tlak|CO2|
 |--|-----|---|--|
 |Maximum|40|110000|8192|
-|Minimum|-20|30000|400|
+|Minimum|-20|30000|0|
 |Značení chyby|45|0|0|
 
 Senzor CO2 potřebuje dle [oficiální dokumentace- kapitola Conditioning Period (Run-In)](https://cdn.sparkfun.com/assets/learn_tutorials/1/4/3/CCS811_Datasheet-DS000459.pdf) k ideální přesnosti 20 min zapnutí. Z důvodů šetření baterie toto není možné (Před čtením ze senzoru uplyne maximálně 60s)
