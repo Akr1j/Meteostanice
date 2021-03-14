@@ -40,6 +40,7 @@ Slouží k snímání hodnot eCO2
 ### Senzor deště
 
 # Zdroje
+Veškeré knihovny jsou k nalezení v nasledujících odkazech
 ## Uspání
 - [System Time](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/system_time.html)
 - [[C/C++] Converting time structure to date format](https://ubuntuforums.org/archive/index.php/t-1114250.html)

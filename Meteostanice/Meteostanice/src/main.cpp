@@ -35,11 +35,6 @@ void setup() {
 
 void loop() {
   bool zda_prsi = isPrsi(pin_pro_dest);
-  
-  /*if (!err_bmp280)
-    data_BMP = readValueBMP280();
-  Serial.println("Jsem za BMP");
-  */
 
   if (!err_bme280)
     data_BME = readValueBME280();
