@@ -107,6 +107,58 @@ float readValueBMP280() {
 /************************************************************
 SENZOR CO2
 ************************************************************/
+
+void setupI2C()
+{
+  Wire.begin();
+ 
+  while (!Serial);             // Leonardo: wait for serial monitor
+  Serial.println("\nI2C Scanner");
+}
+void loopI2C()
+{
+  byte error, address;
+  int nDevices;
+ 
+  Serial.println("Scanning...");
+ 
+  nDevices = 0;
+  for(address = 1; address < 127; address++ )
+  {
+    // The i2c_scanner uses the return value of
+    // the Write.endTransmisstion to see if
+    // a device did acknowledge to the address.
+    Wire.beginTransmission(address);
+    error = Wire.endTransmission();
+ 
+    if (error == 0)
+    {
+      Serial.print("I2C device found at address 0x");
+      if (address<16)
+        Serial.print("0");
+      Serial.print(address,HEX);
+      Serial.println("  !");
+ 
+      nDevices++;
+    }
+    else if (error==4)
+    {
+      Serial.print("Unknown error at address 0x");
+      if (address<16)
+        Serial.print("0");
+      Serial.println(address,HEX);
+    }    
+  }
+  if (nDevices == 0)
+    Serial.println("No I2C devices found\n");
+  else
+    Serial.println("done\n");
+}
+
+
+
+
+
 Adafruit_CCS811 ccs;
 
 /*!
@@ -115,8 +167,6 @@ Adafruit_CCS811 ccs;
 void setupCCS811() { 
   ccs.begin();
   while(!ccs.available());
-  float temp = ccs.calculateTemperature();
-  ccs.setTempOffset(temp - 25.0);
 }
 
 bool verifyValueCCS811(int hodnota){
@@ -131,8 +181,10 @@ bool verifyValueCCS811(int hodnota){
  * @return Hodnota CO2 (int)
  */
 int readValueCCS811() {
+  setupI2C();
+  loopI2C();
   if(ccs.available()){
-    delay(5000); //Čas pro stabilizování senzoru !! Mělo by být 20min není možni viz.dokumentace
+    //delay(5000); //Čas pro stabilizování senzoru !! Mělo by být 20min není možni viz.dokumentace
     if(!ccs.readData()){
       int co2 = ccs.geteCO2();
       if (!verifyValueCCS811(co2))
@@ -141,15 +193,17 @@ int readValueCCS811() {
     }
     else{
       Serial.println("ERROR: Data CO2");
-      sendErrorViaWifi(15,"ERROR: Data CO2");
+      //sendErrorViaWifi(15,"ERROR: Data CO2");
       senzoryReset();
       return 0;
     }
   }
-  Serial.println("ERROR: Start CO2");
-  sendErrorViaWifi(16,"ERROR: Start CO2");
-  senzoryReset();
-  return 0;
+  else{
+    Serial.println("ERROR: Start CO2");
+    sendErrorViaWifi(16,"ERROR: Start CO2");
+    senzoryReset();
+    return 0;
+  }
 }
 
 

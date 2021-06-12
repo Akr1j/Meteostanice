@@ -14,6 +14,6 @@ void zapniSerial(int rychlost){
  * @brief Zapnití periferií
  */
 void setupPorty(){
-  pinMode(5, OUTPUT);
-  digitalWrite(5,1);
+  pinMode(18, OUTPUT);
+  digitalWrite(18,1);
 }

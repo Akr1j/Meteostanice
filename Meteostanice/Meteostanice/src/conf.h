@@ -1,3 +1,6 @@
+//const char* ssid = "Jandourek";
+//const char* password = "hesloProNarusitele";
+
 const char* ssid = "ssidWIFI";
 const char* password = "hesloWIFI";
 
