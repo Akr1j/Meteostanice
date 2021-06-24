@@ -152,8 +152,7 @@ int readValueCCS811() {
 SENZOR BME280
 ************************************************************/
 Adafruit_BME280 bme;
-int tlak2;
-int vlhkost;
+
 //Adresa I2C pro BME upravena v knihovně Adafruit_BMP280 na hodnotu 0x76
 
 /*!
@@ -179,7 +178,7 @@ bool verifyTemperatureBME280(int teplota){
     return true;
 }
 bool verifyPressureBME280(int tlak){
-  if (tlak2 > 110000 || tlak2 < 30000)
+  if (tlak > 110000 || tlak < 30000)
     return false;
   else
     return true;

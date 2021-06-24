@@ -41,7 +41,6 @@ void loop() {
     Serial.println(*(data_BME + 2));
   Serial.println("Jsem za BME");
   
-  tlak = tlak + tlak2;
   int co2 = readValueCCS811();
 
   sendDataViaWifi(*data_BME, *(data_BME + 2), *(data_BME + 1), co2, zda_prsi);
