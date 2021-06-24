@@ -9,16 +9,13 @@ const int sleepTime = 30; //Doba spánku (ve vteřinách)
 
 const int pin_pro_dest = 34; //Port pro připojení senzoru deště
 
-//bool err_bmp280;
 bool err_bme280;
-//float data_BMP;
 double *data_BME;
 
 void setup() {
   zapniSerial(9600);
   //timeChecker(sleepTime, rozptylCasu);
   setupPorty();
-  //err_bmp280 = setupBMP280();
   err_bme280 = setupBME280();
   if (!err_bme280)
     Serial.println("Test BME úspěšný");
