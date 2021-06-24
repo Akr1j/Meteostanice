@@ -29,12 +29,11 @@ void setupWifiCon() {
 
 /*!
  * @brief Odeslání dat na server pomocí WIFI
- * @param adresa Adresa na kterou se data mají posílat
- * @param teplota Hodnota teploty odesílaná na server
- * @param vlhkost Hodnota vlhkosti odesílaná na server
- * @param tlak Hodnota tlaku odesílaná na server
- * @param co2 Hodnota CO2 odesílaná na server
- * @param dest Hodnota zobrazující zda prší odesílaná na server
+ * @param teplota Hodnota teploty k odesílání na server
+ * @param vlhkost Hodnota vlhkosti k odesílání na server
+ * @param tlak Hodnota tlaku k odesílání na server
+ * @param co2 Hodnota CO2 k odesílání na server
+ * @param dest Hodnota zobrazující zda prší k odesílání na server
  */
 void sendDataViaWifi(float teplota, float vlhkost, int tlak, int co2, bool dest) {
   String teplota_text = String(teplota);
@@ -46,16 +45,22 @@ void sendDataViaWifi(float teplota, float vlhkost, int tlak, int co2, bool dest)
     HTTPClient http;
     http.begin(server_data);
     http.addHeader("Content-Type", "application/json");
+    
     String postBody = "{\"TEPLOTA\":\""+ teplota_text +"\", \"VLHKOST\":"+ vlhkost_text +", \"TLAK\":"+ tlak_text +", \"CO2\":"+ co2_text +", \"DEST\":"+ dest_text +"}";
     Serial.print("Odesláno: Teplota:");
-    Serial.print(teplota_text);
-    Serial.print(" Vlhkost:");
-    Serial.print(vlhkost_text);
-    Serial.print(" Tlak:");
-    Serial.println(tlak_text);
+      Serial.print(teplota_text);
+      Serial.print(", Vlhkost:");
+      Serial.print(vlhkost_text);
+      Serial.print(", Tlak:");
+      Serial.print(tlak_text);
+      Serial.print(", CO2:");
+      Serial.print(co2_text);
+      Serial.print(", Dest:");
+      Serial.println(dest_text);
+    
     int httpResponseCode = http.POST(postBody);
     Serial.print("HTTP Response code pro /novaData: ");
-    Serial.println(httpResponseCode);
+      Serial.println(httpResponseCode);
     http.end();
   }
   else {
@@ -66,7 +71,6 @@ void sendDataViaWifi(float teplota, float vlhkost, int tlak, int co2, bool dest)
 
 /*!
  * @brief Odeslání oznámení o ukradnutí
- * @param adresa Adresa na kterou se mají data posílat
  */
 void sendDataViaWifi(){
   if(WiFi.status()== WL_CONNECTED){   //Check WiFi connection status
@@ -76,7 +80,7 @@ void sendDataViaWifi(){
     String postBody = "{\"Pohyb\":\"1\"}";
     int httpResponseCode = http.POST(postBody);
     Serial.print("HTTP Response code pro /pohyb: ");
-    Serial.println(httpResponseCode);
+      Serial.println(httpResponseCode);
     http.end();
   }
   else {

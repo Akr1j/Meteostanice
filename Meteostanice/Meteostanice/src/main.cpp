@@ -9,9 +9,9 @@ const int sleepTime = 30; //Doba spánku (ve vteřinách)
 
 const int pin_pro_dest = 34; //Port pro připojení senzoru deště
 
-bool err_bmp280;
+//bool err_bmp280;
 bool err_bme280;
-float data_BMP;
+//float data_BMP;
 double *data_BME;
 
 void setup() {
@@ -28,8 +28,6 @@ void setup() {
   setupDestSenzor(pin_pro_dest);
   Serial.println("Před nastavením WIFI");
   setupWifiCon();
-  data_BMP = 50; //Defaultní hodnota (V případě chyby)
-  tlak = 0; //Defaultní hodnota (V případě chyby)
   Serial.println("Nastavení hotové");
 }
 
@@ -46,7 +44,7 @@ void loop() {
     Serial.println(*(data_BME + 2));
   Serial.println("Jsem za BME");
   
- tlak = tlak + tlak2;
+  tlak = tlak + tlak2;
   int co2 = readValueCCS811();
 
   sendDataViaWifi(*data_BME, *(data_BME + 2), *(data_BME + 1), co2, zda_prsi);
