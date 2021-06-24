@@ -254,25 +254,31 @@ bool verifyHumidityeBME280(int vlhkost){
  * @brief Čtení hodnot ze senzoru BME280
  * @return Teplota (float)
  */
-float readValueBME280() {
-  Serial.println("Jsem v BME");
-  float teplota;
-  teplota = bme.readTemperature();
-  teplota = teplota - 0; //Korekce kvůly zahřívání senzoru
+double * readValueBME280() {
+  Serial.println("Začátek snímání BME");
+  static double values[3]; // {Teplota, Tlak, Vlhkost}
+
+  values[0] = bme.readTemperature();
     Serial.print("Teplota BME:");
-    Serial.print(teplota);
-  tlak2 = bme.readPressure();
+    Serial.print(values[0]);
+
+  values[1] = bme.readPressure();
     Serial.print(",  Tlak BME:");
-    Serial.print(tlak2);
-  vlhkost = bme.readHumidity();
+    Serial.print(values[1]);
+    //Serial.print(tlak2);
+
+  values[2] = bme.readHumidity();
     Serial.print(",  Vlhkost BME:");
-    Serial.println(vlhkost);
-  if(!verifyTemperatureBME280(teplota))
-    teplota = 50;
-  if(!verifyPressureBME280(tlak2))
-    tlak2 = 0;
-  if (!verifyHumidityeBME280(vlhkost))
-    vlhkost = -1;
+    Serial.println(values[2]);
+    //Serial.println(vlhkost);
+
+/*
+  if(!verifyTemperatureBME280(values[0]))
+    values[0] = 50;
+  if(!verifyPressureBME280(values[1]))
+    values[1] = 0;
+  if (!verifyHumidityeBME280(values[2]))
+    values[2] = -1;*/
   
-  return teplota;
+  return values;
 }

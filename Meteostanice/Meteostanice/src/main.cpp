@@ -12,11 +12,11 @@ const int pin_pro_dest = 34; //Port pro připojení senzoru deště
 bool err_bmp280;
 bool err_bme280;
 float data_BMP;
-float data_BME;
+double *data_BME;
 
 void setup() {
   zapniSerial(9600);
-  timeChecker(sleepTime, rozptylCasu);
+  //timeChecker(sleepTime, rozptylCasu);
   setupPorty();
   //err_bmp280 = setupBMP280();
   err_bme280 = setupBME280();
@@ -38,11 +38,17 @@ void loop() {
 
   if (!err_bme280)
     data_BME = readValueBME280();
+    Serial.print("Výpis:");
+    Serial.print(*data_BME);
+    Serial.print( " Tlak ");
+    Serial.print(*(data_BME + 1));
+    Serial.print( " Vlhkost ");
+    Serial.println(*(data_BME + 2));
   Serial.println("Jsem za BME");
   
  tlak = tlak + tlak2;
   int co2 = readValueCCS811();
 
-  sendDataViaWifi(data_BME, vlhkost, tlak, co2, zda_prsi);
+  sendDataViaWifi(*data_BME, *(data_BME + 1), *(data_BME + 2), co2, zda_prsi);
   usni(sleepTime);
 }

@@ -47,6 +47,12 @@ void sendDataViaWifi(float teplota, float vlhkost, int tlak, int co2, bool dest)
     http.begin(server_data);
     http.addHeader("Content-Type", "application/json");
     String postBody = "{\"TEPLOTA\":\""+ teplota_text +"\", \"VLHKOST\":"+ vlhkost_text +", \"TLAK\":"+ tlak_text +", \"CO2\":"+ co2_text +", \"DEST\":"+ dest_text +"}";
+    Serial.print("Odesláno: Teplota:");
+    Serial.print(teplota_text);
+    Serial.print(" Vlhkost:");
+    Serial.print(vlhkost_text);
+    Serial.print(" Tlak:");
+    Serial.println(tlak_text);
     int httpResponseCode = http.POST(postBody);
     Serial.print("HTTP Response code pro /novaData: ");
     Serial.println(httpResponseCode);

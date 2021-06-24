@@ -12,4 +12,4 @@ void setupCCS811();
 int readValueCCS811();
 
 bool setupBME280();
-float readValueBME280();
+double * readValueBME280();
