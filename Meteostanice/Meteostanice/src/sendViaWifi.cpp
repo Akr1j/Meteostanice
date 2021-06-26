@@ -4,7 +4,7 @@
 #include <spanek.h>
 
 /*!
-* @brief Připojení se do WIFI sítě
+* @brief Připojení se do WiFi sítě
 */
 bool setupWifiCon() {
   WiFi.begin(ssid, password);
@@ -30,7 +30,7 @@ bool setupWifiCon() {
 }
 
 /*!
- * @brief Odeslání dat na server pomocí WIFI
+ * @brief Odeslání dat na server pomocí WiFi
  * @param teplota Hodnota teploty k odesílání na server
  * @param vlhkost Hodnota vlhkosti k odesílání na server
  * @param tlak Hodnota tlaku k odesílání na server
@@ -43,9 +43,10 @@ void sendDataViaWifi(float teplota, float vlhkost, int tlak, int co2, bool dest)
   String tlak_text = String(tlak);
   String co2_text  = String(co2);
   String dest_text = String(dest);
+
   if(WiFi.status()== WL_CONNECTED){   //Check WiFi connection status
     HTTPClient http;
-    http.begin(server_data);
+    http.begin(server_data); //server_data - adresa API serveru pro zaznamenání dat
     http.addHeader("Content-Type", "application/json");
     
     String postBody = "{\"TEPLOTA\":\""+ teplota_text +"\", \"VLHKOST\":"+ vlhkost_text +", \"TLAK\":"+ tlak_text +", \"CO2\":"+ co2_text +", \"DEST\":"+ dest_text +"}";
@@ -77,9 +78,11 @@ void sendDataViaWifi(float teplota, float vlhkost, int tlak, int co2, bool dest)
 void sendDataViaWifi(){
   if(WiFi.status()== WL_CONNECTED){   //Check WiFi connection status
     HTTPClient http;
-    http.begin(server_pohyb);
+    http.begin(server_pohyb); //server_pohyb - adresa API serveru pro zaznamenání pohybu
     http.addHeader("Content-Type", "application/json");
+    
     String postBody = "{\"Pohyb\":\"1\"}";
+    
     int httpResponseCode = http.POST(postBody);
     Serial.print("HTTP Response code pro /pohyb: ");
       Serial.println(httpResponseCode);
@@ -93,20 +96,22 @@ void sendDataViaWifi(){
 
 /*!
  * @brief Odesílání oznámení o chybách
- * @param id id chyby
+ * @param idChyby id chyby
  * @param zaznam popis chyby
  */
-void sendDataViaWifi(int id,const char* zaznam){
-    String id_text = String(id);
+void sendDataViaWifi(int idChyby,const char* zaznam){
+    String idChyby_text = String(idChyby);
     String zaznam_text = String(zaznam);
   if(WiFi.status()== WL_CONNECTED){   //Check WiFi connection status
     HTTPClient http;
-    http.begin(server_error);
+    http.begin(server_error); //server_error - adresa API serveru pro zaznamenání chyb
     http.addHeader("Content-Type", "application/json");
-    String postBody = "{\"ID\":\""+ id_text +"\", \"ZAZNAM\":\""+ zaznam_text +"\", \"MISTO\":\"Meteo1\"}";
+
+    String postBody = "{\"ID\":\""+ idChyby_text +"\", \"ZAZNAM\":\""+ zaznam_text +"\", \"MISTO\":\"Meteo1\"}";
+
     int httpResponseCode = http.POST(postBody);
     Serial.print("HTTP Response code pro /chyba: ");
-    Serial.println(httpResponseCode);
+      Serial.println(httpResponseCode);
     http.end();
   }
   else {
