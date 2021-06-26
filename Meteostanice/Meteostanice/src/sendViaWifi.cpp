@@ -1,6 +1,7 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <conf.h>
+#include <spanek.h>
 
 /*!
 * @brief Připojení se do WIFI sítě
@@ -19,12 +20,11 @@ bool setupWifiCon() {
     Serial.println("");
     Serial.print("Connected to WiFi network with IP Address: ");
     Serial.println(WiFi.localIP());
-    delay(500);
     return 0;
   }else
   {
     Serial.println("Chyba připojení k WIFI");
-    esp_restart();
+    usni(900);
     return 1;
   }
 }
