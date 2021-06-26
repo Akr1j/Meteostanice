@@ -59,6 +59,7 @@ Adafruit_CCS811 ccs;
 
 /*!
  * @brief Zapnití senzoru CCS811
+ * @return 0 po zapnutí senzoru
  */
 bool setupCCS811() { 
   ccs.begin();
@@ -66,6 +67,10 @@ bool setupCCS811() {
   return 0;
 }
 
+/*!
+ * @brief Kontrola hodnoty zda se nachází ve vymezeném rozmezí
+ * @return 0 pokud není v rozmezí
+ */
 bool verifyValueCCS811(int hodnota){
   if (hodnota > 8192 || hodnota < 400)
     return false;
@@ -79,7 +84,6 @@ bool verifyValueCCS811(int hodnota){
  */
 int readValueCCS811() {
   if(ccs.available()){
-    //delay(5000); //Čas pro stabilizování senzoru !! Mělo by být 20min není možni viz.dokumentace
     if(!ccs.readData()){
       int co2 = ccs.geteCO2();
       if (!verifyValueCCS811(co2))
@@ -88,7 +92,7 @@ int readValueCCS811() {
     }
     else{
       Serial.println("ERROR: Data CO2");
-      //sendErrorViaWifi(15,"ERROR: Data CO2");
+      sendErrorViaWifi(15,"ERROR: Data CO2");
       senzoryReset();
       return 0;
     }
@@ -125,19 +129,33 @@ bool setupBME280() {
   return false;
 }
 
+/*!
+ * @brief Kontrola hodnoty zda se nachází ve vymezeném rozmezí
+ * @return 0 pokud není v rozmezí
+ */
 bool verifyTemperatureBME280(int teplota){
   if (teplota > 45 || teplota < (-20))
     return false;
   else
     return true;
 }
+
+/*!
+ * @brief Kontrola hodnoty zda se nachází ve vymezeném rozmezí
+ * @return 0 pokud není v rozmezí
+ */
 bool verifyPressureBME280(int tlak){
   if (tlak > 110000 || tlak < 30000)
     return false;
   else
     return true;
 }
-bool verifyHumidityeBME280(int vlhkost){
+
+/*!
+ * @brief Kontrola hodnot zda se nachází ve vymezeném rozmezí
+ * @return 0 pokud není v rozmezí
+ */
+bool verifyHumidityBME280(int vlhkost){
   if (vlhkost > 100 || vlhkost < 0)
     return false;
   else
@@ -146,7 +164,7 @@ bool verifyHumidityeBME280(int vlhkost){
 
 /*!
  * @brief Čtení hodnot ze senzoru BME280
- * @return Teplota (float)
+ * @return Pole hodnot {Teplota, Tlak, Vlhkost} (double *)
  */
 double * readValueBME280() {
   Serial.println("Začátek snímání BME");
@@ -159,20 +177,17 @@ double * readValueBME280() {
   values[1] = bme.readPressure();
     Serial.print(",  Tlak BME:");
     Serial.print(values[1]);
-    //Serial.print(tlak2);
 
   values[2] = bme.readHumidity();
     Serial.print(",  Vlhkost BME:");
     Serial.println(values[2]);
-    //Serial.println(vlhkost);
 
-/*
   if(!verifyTemperatureBME280(values[0]))
     values[0] = 50;
   if(!verifyPressureBME280(values[1]))
     values[1] = 0;
-  if (!verifyHumidityeBME280(values[2]))
-    values[2] = -1;*/
+  if (!verifyHumidityBME280(values[2]))
+    values[2] = -1;
   
   return values;
 }
