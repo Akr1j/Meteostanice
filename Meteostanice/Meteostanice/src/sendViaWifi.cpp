@@ -5,7 +5,7 @@
 /*!
 * @brief Připojení se do WIFI sítě
 */
-void setupWifiCon() {
+bool setupWifiCon() {
   WiFi.begin(ssid, password);
   Serial.print("Connecting");
   int pocet_pokusu_o_pripojeni = 0;
@@ -20,10 +20,12 @@ void setupWifiCon() {
     Serial.print("Connected to WiFi network with IP Address: ");
     Serial.println(WiFi.localIP());
     delay(500);
+    return 0;
   }else
   {
     Serial.println("Chyba připojení k WIFI");
     esp_restart();
+    return 1;
   }
 }
 

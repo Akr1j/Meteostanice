@@ -11,7 +11,7 @@ void zapniSerial(int rychlost){
 }
 
 /*!
- * @brief Zapnití periferií
+ * @brief Zapnutí periferií (Připojení obvodu s moduly)
  */
 void setupPorty(){
   pinMode(18, OUTPUT);

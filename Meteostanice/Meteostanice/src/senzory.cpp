@@ -105,9 +105,10 @@ Adafruit_CCS811 ccs;
 /*!
  * @brief Zapnití senzoru CCS811
  */
-void setupCCS811() { 
+bool setupCCS811() { 
   ccs.begin();
   while(!ccs.available());
+  return 0;
 }
 
 bool verifyValueCCS811(int hodnota){
