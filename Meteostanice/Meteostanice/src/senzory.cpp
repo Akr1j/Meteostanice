@@ -22,7 +22,7 @@ void senzoryReset(){
 }
 
 void sendErrorViaWifi(int id,const char* zaznam){
-  //setupWifiCon();
+  setupWifiCon();
   sendDataViaWifi(id, zaznam);
 }
 
@@ -32,17 +32,18 @@ SENZOR DEŠTĚ
 
 /*!
  * @brief Zapnutí senzoru deště
+ * @param pinSenzoruDeste Číslo pinu na kterém je připojen senzor deště
  */
-void setupDestSenzor(const int pin_pro_dest){
-  pinMode(pin_pro_dest,INPUT);
+void setupDestSenzor(const int pinSenzoruDeste){
+  pinMode(pinSenzoruDeste,INPUT);
 }
 
 /*!
  * @brief Čtení hodnot z senzoru deště
- * @return Senzor mokrý => true
+ * @return true pokud je senzor mokrý
  */
-bool isPrsi(const int pin_pro_dest){
-  return !(digitalRead(pin_pro_dest));
+bool isPrsi(const int pinSenzoruDeste){
+  return !(digitalRead(pinSenzoruDeste));
 }
 
 /************************************************************

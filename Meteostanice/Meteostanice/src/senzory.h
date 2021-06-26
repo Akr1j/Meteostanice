@@ -1,5 +1,5 @@
-void setupDestSenzor(const int pin_pro_dest);
-bool isPrsi(const int pin_pro_dest);
+void setupDestSenzor(const int pinSenzoruDeste);
+bool isPrsi(const int pinSenzoruDeste);
 
 bool setupCCS811();
 int readValueCCS811();

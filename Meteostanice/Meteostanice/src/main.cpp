@@ -7,7 +7,7 @@
 const int sleepTime = 30; //Doba spánku (ve vteřinách)
 #define rozptylCasu 1 //Rozsah korekce času (časovač se posunuje. Zde doba kdy se vyhlásí poplach)
 
-const int pin_pro_dest = 34; //Port pro připojení senzoru deště
+const int pinSenzoruDeste = 34; //Port pro připojení senzoru deště
 
 bool err_bme280;
 bool err_CCS811;
@@ -32,7 +32,7 @@ void setup() {
   else
     Serial.println("Test CCS811 neúspěšný");
 
-  setupDestSenzor(pin_pro_dest);
+  setupDestSenzor(pinSenzoruDeste);
   
   Serial.println("Před nastavením WIFI");
   if (!setupWifiCon())
@@ -61,6 +61,6 @@ void loop() {
   {
     data_CCS811 = readValueCCS811();
   }
-  sendDataViaWifi(*data_BME, *(data_BME + 2), *(data_BME + 1), data_CCS811, isPrsi(pin_pro_dest));
+  sendDataViaWifi(*data_BME, *(data_BME + 2), *(data_BME + 1), data_CCS811, isPrsi(pinSenzoruDeste));
   usni(sleepTime);
 }
