@@ -12,18 +12,24 @@
 void senzoryReset(){
   if (EEPROM.read(0) < 4){
     digitalWrite(5,0);
-    int number_of_restarts =  EEPROM.read(0);
+    int pocetRestartu =  EEPROM.read(0);
     Serial.println("EEPROM hodnota: ");
-    Serial.println(number_of_restarts);
-    EEPROM.write(0,number_of_restarts++);
+    Serial.println(pocetRestartu);
+    EEPROM.write(0,pocetRestartu++);
     delay(500);
     esp_restart();
   }
 }
 
-void sendErrorViaWifi(int id,const char* zaznam){
+/*!
+ * @brief Odesílání chyb přes WiFi
+ * Obsahuje i připojení k WiFi
+ * @param idChyby
+ * @param zaznam popis chyby
+ */
+void sendErrorViaWifi(int idChyby,const char* zaznam){
   setupWifiCon();
-  sendDataViaWifi(id, zaznam);
+  sendDataViaWifi(idChyby, zaznam);
 }
 
 /************************************************************
