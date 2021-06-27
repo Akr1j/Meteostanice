@@ -5,6 +5,7 @@
 
 /*!
 * @brief Připojení se do WiFi sítě
+* @return 0 pokud chyba
 */
 bool setupWifiCon() {
   WiFi.begin(ssid, password);

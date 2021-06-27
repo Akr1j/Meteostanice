@@ -1,7 +1,7 @@
 #include <spanek.h>
 #include <senzory.h>
 #include <startup.h>
-#include <sendViaWifi.h>
+#include <sendingDataViaWiFi/sendViaWifi.h>
 #include <Arduino.h>
 
 const int sleepTime = 30; //Doba spánku (ve vteřinách)

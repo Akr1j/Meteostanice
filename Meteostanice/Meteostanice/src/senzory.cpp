@@ -4,7 +4,7 @@
 #include "Adafruit_CCS811.h"
 #include <EEPROM.h>
 
-#include <sendViaWifi.h>
+#include <sendingDataViaWiFi/sendViaWifi.h>
 
 /*!
  * @brief Restartování periférií

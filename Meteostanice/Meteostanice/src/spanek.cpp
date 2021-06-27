@@ -2,7 +2,7 @@
 #include <sys/types.h>
 #include <sys/time.h>
 
-#include <sendViaWifi.h>
+#include <sendingDataViaWiFi/sendViaWifi.h>
 
 /*!
  * @brief Uspání zařízení
