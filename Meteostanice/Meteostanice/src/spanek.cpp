@@ -14,6 +14,7 @@ void usni(const int sleepTime){
 
 /*!
  * @brief Akce po ukradnutí zařízení
+ * @param sleepTime Čas po jakou dobu se má meteostanice uspat
  */
 void kradez(const int sleepTime){
   Serial.println("Ukradnuto");
@@ -25,14 +26,10 @@ void kradez(const int sleepTime){
 RTC_DATA_ATTR long int casSpankuStary; //Čas ukládaný i přes deepSleep
 /*!
  * @brief Kontrola zda bylo zařízení ukradnuto
- * @param ssid Název WIFI
- * @param password Heslo k WIFI
  * @param sleepTime Doba spánku (ve vteřinách)
+ * @param rozptylCasu Doba které se toleruje z důvodů chybovosti časovače
  */
 void timeChecker(const int sleepTime, const int rozptylCasu) {
-  struct timeval tv_now;
-  static uint64_t sleep_start_us = 0;
-  sleep_start_us = gettimeofday(&tv_now,NULL);
   time_t now;
   time(&now);
   long int casSpanku = now;

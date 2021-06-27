@@ -17,7 +17,7 @@ int data_CCS811;
 void setup() {
 
   zapniSerial(9600);
-  //timeChecker(sleepTime, rozptylCasu);
+  timeChecker(sleepTime, rozptylCasu);
   setupPorty();
 
   err_bme280 = setupBME280();
@@ -62,5 +62,6 @@ void loop() {
     data_CCS811 = readValueCCS811();
   }
   sendDataViaWifi(*data_BME, *(data_BME + 2), *(data_BME + 1), data_CCS811, isPrsi(pinSenzoruDeste));
+
   usni(sleepTime);
 }
